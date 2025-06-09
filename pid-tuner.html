@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PID Tuner - Adeel Ahsan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 dark:bg-slate-800/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-blue-600 dark:text-blue-400">Adeel Ahsan</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Back to Portfolio</a>
+                    <button id="theme-toggle" class="text-gray-800 dark:text-gray-200 hover:text-blue-600">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 pb-3">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Back to Portfolio</a>
+                <button id="mobile-theme-toggle" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i> Toggle Theme
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                    Online PID Tuner App
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+                    A free, web-based tool for interactive PID controller analysis and tuning. Design and analyze your control systems with ease.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://pid-tuner.onrender.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        Launch App
+                    </a>
+                    <a href="https://github.com/adeelahsaanawan/pid-tuner" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fab fa-github mr-2"></i>
+                        View Source
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Features</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-line text-2xl text-blue-600 dark:text-blue-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Interactive Plots</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Visualize Bode plots and step responses with interactive Plotly charts for detailed analysis.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-sliders-h text-2xl text-blue-600 dark:text-blue-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Real-time Tuning</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Adjust PID parameters and see the effects on system performance in real-time.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tachometer-alt text-2xl text-blue-600 dark:text-blue-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Performance Metrics</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Calculate key metrics including gain margin, phase margin, rise time, and settling time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-16 bg-gray-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">How It Works</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-white dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-xl font-bold text-blue-600 dark:text-blue-400">1</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Input Parameters</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Enter plant coefficients and PID parameters (Kp, Ki, Kd, N).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-white dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-xl font-bold text-blue-600 dark:text-blue-400">2</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analysis</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Backend computes loop shape, closed-loop response, and performance metrics.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-white dark:bg-slate-700 rounded-lg p-6 shadow-md">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-xl font-bold text-blue-600 dark:text-blue-400">3</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Results</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            View interactive Bode plots, step response, and performance metrics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Technical Details</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+
+            <div class="prose prose-blue max-w-3xl mx-auto dark:prose-invert">
+                <div class="bg-gray-50 dark:bg-slate-700 rounded-lg p-8 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Technology Stack</h3>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                        <li><strong>Backend:</strong> Flask, python-control library</li>
+                        <li><strong>Frontend:</strong> Bootstrap, Plotly</li>
+                        <li><strong>Deployment:</strong> Render</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-gray-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+            <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+                Have questions or suggestions? Feel free to reach out!
+            </p>
+            <a href="mailto:maahsan@mun.ca" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                <i class="fas fa-envelope mr-2"></i>
+                Contact Me
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle functionality
+        function setTheme(darkMode) {
+            if (darkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Initialize theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Theme toggle event listeners
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(!isDark);
+            localStorage.theme = isDark ? 'light' : 'dark';
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

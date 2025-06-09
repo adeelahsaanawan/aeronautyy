@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adeel Ahsan - Aerospace Engineer & Control Systems Specialist. Explore my portfolio featuring advanced projects in UAV control, trajectory optimization, autonomous systems, and cutting-edge flight control algorithms. Expert in Model Predictive Control, Neural Networks, and real-time embedded systems for aerial robotics.">
+    <meta name="author" content="Adeel Ahsan">
+    <meta name="keywords" content="Aerospace Engineer, Control Systems, UAV, UAS, Drone, Quadrotor, Quadcopter, Trajectory Optimization, Path Planning, Nonlinear Control, Model Predictive Control, MPC, Neural Networks, Machine Learning, Robotics, Autonomous Systems, Flight Dynamics, System Identification, MATLAB, Simulink, Python, C++, ROS, Robot Operating System, State Estimation, Sensor Fusion, Guidance Navigation and Control, GNC, Aerospace Engineering, Mechatronics, Embedded Systems, Real-time Systems, Hardware-in-the-Loop, HIL, Software-in-the-Loop, SIL, Parameter Estimation, Adaptive Control, Robust Control, Optimal Control, Flight Control Systems, Avionics, MEMS Sensors, IMU, GPS, Computer Vision, SLAM, Motion Planning, Trajectory Generation, Trajectory Tracking, Aerial Robotics, Fixed-wing, VTOL, Multirotor, Swarm Robotics, Unmanned Aerial Vehicles, Autonomous Navigation, Machine Learning in Control, Deep Learning for Robotics, Reinforcement Learning, Optimization Algorithms, Convex Optimization, Nonlinear Optimization, Numerical Methods, Dynamic Modeling, System Identification, Parameter Estimation, Flight Testing, Experimental Validation, Research and Development, Technical Innovation">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aeronautyy.com/">
+    <meta property="og:title" content="Adeel Ahsan - Aerospace Engineer & Control Systems Specialist">
+    <meta property="og:description" content="Explore my portfolio showcasing projects in UAV control, trajectory optimization, and autonomous systems.">
+    <meta property="og:image" content="https://aeronautyy.com/assets/adeel2.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.aeronautyy.com/">
+    <meta name="twitter:title" content="Adeel Ahsan - Aerospace Engineer & Control Systems Specialist">
+    <meta name="twitter:description" content="Explore my portfolio showcasing projects in UAV control, trajectory optimization, and autonomous systems.">
+    <meta name="twitter:image" content="https://aeronautyy.com/assets/adeel2.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <title>Adeel Ahsan - Portfolio | Aerospace Engineer & Control Systems Specialist</title>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://kit.fontawesome.com/your-code.js" as="script">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.aeronautyy.com/" />
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Adeel Ahsan",
+      "url": "https://www.aeronautyy.com",
+      "sameAs": [
+        "https://linkedin.com/in/adeelahsaanawan",
+        "https://github.com/adeelahsaanawan"
+      ],
+      "jobTitle": "Aerospace Engineer & Control Systems Specialist",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Memorial University of Newfoundland"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Memorial University of Newfoundland"
+      },
+      "description": "Aerospace Engineer specializing in UAV control systems, trajectory optimization, autonomous systems, and advanced flight control algorithms. Expertise in Model Predictive Control, Neural Networks, and real-time embedded systems for aerial robotics.",
+      "keywords": ["Aerospace Engineering", "Control Systems", "UAV", "Drone", "Quadrotor", "Trajectory Optimization", "MPC", "Neural Networks", "Robotics", "Autonomous Systems", "MATLAB", "Python", "ROS", "Flight Control", "State Estimation"]
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <!-- Simple Parallax Library -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.5.1/dist/simpleParallax.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #cbd5e1;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -1.875rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 3px solid white;
+        }
+        
+        .skill-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .dark\:bg-slate-800 {
+            background-color: #1e293b;
+        }
+        
+        .dark .dark\:text-white {
+            color: #f8fafc;
+        }
+        
+        .dark .dark\:bg-slate-700 {
+            background-color: #334155;
+        }
+        
+        .dark .dark\:border-slate-600 {
+            border-color: #475569;
+        }
+        
+        .dark .dark\:text-gray-300 {
+            color: #cbd5e1;
+        }
+        
+        .dark .dark\:bg-slate-900 {
+            background-color: #0f172a;
+        }
+        
+        .dark .dark\:bg-blue-900 {
+            background-color: #1e40af;
+        }
+        
+        .dark .dark\:text-blue-400 {
+            color: #60a5fa;
+        }
+        
+        .dark .dark\:hover\:bg-slate-700:hover {
+            background-color: #334155;
+        }
+        
+        .dark .timeline-item::before {
+            background-color: #475569;
+        }
+        
+        /* Improved Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        #mobile-menu.show {
+            max-height: 400px;
+        }
+        
+        /* Improved Responsive Typography */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: clamp(2rem, 5vw, 3rem);
+                line-height: 1.2;
+            }
+            h2 {
+                font-size: clamp(1.5rem, 4vw, 2rem);
+                line-height: 1.3;
+            }
+            p {
+                font-size: clamp(1rem, 3vw, 1.125rem);
+                line-height: 1.6;
+            }
+        }
+        
+        /* Improved Dark Mode Transition */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Loading State */
+        .loading {
+            opacity: 0;
+        }
+        
+        .loaded {
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        /* Responsive section padding for smaller screens */
+        @media (max-width: 640px) {
+          .section {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+          }
+        }
+    </style>
+</head>
+<body class="min-h-screen loading">
+    <!-- Preload Hero Image -->
+    <link rel="preload" as="image" href="assets/adeel2.jpg">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 dark:bg-slate-800/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-blue-600 dark:text-blue-400">Adeel Ahsan</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200 active-nav">Home</a>
+                    <a href="#experience" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Experience</a>
+                    <a href="#education" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Education</a>
+                    <a href="#skills" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Skills</a>
+                    <a href="#projects" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Projects</a>
+                    <a href="#publications" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Publications</a>
+                    <a href="#apps-tools" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Apps & Tools</a>
+                    <button id="theme-toggle" class="text-gray-800 dark:text-gray-200 hover:text-blue-600">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 pb-3">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Home</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Experience</a>
+                <a href="#education" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Education</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Projects</a>
+                <a href="#publications" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Publications</a>
+                <a href="#apps-tools" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">Apps & Tools</a>
+                <button id="mobile-theme-toggle" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i> Toggle Theme
+                </button>
+            </div>
+        </div>
+    </nav>
+
+<!-- Hero Section -->
+<section id="home" class="section min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex flex-col md:flex-row items-center md:items-start py-8 sm:py-14 md:py-20 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 bg-fixed bg-cover bg-center overflow-visible">
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] opacity-10 dark:opacity-5"></div>
+  <div class="hero-content relative z-10 w-full">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Container with left text & right image -->
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+      
+      <!-- Left Side: Headings & Paragraph (justified text) -->
+      <div class="md:w-1/2 space-y-6">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white text-left">
+          Adeel Ahsan
+        </h1>
+        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-blue-600 dark:text-blue-400 text-left">
+          Aerospace and Electrical Engineer
+        </h2>
+        <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 text-justify">
+            Hi, I'm Adeel, an aerospace and electrical engineer currently pursuing my Master’s degree in Electrical Engineering at the Intelligent Systems Lab, Memorial University of Newfoundland. My research focuses on optimal nonlinear, model-based, disturbance-aware predictive control, and trajectory generation for aerospace systems operating in complex, cluttered environments. When I'm not in the lab, you’ll likely find me exploring St. John’s by foot, experimenting with new recipes in the kitchen, hitting the gym, playing soccer, or enjoying a scenic hike.
+          </p>          
+        
+        <!-- Inspirational Quote -->
+        <blockquote class="mt-6 mb-2 border-l-4 border-blue-600 pl-4 italic text-gray-700 dark:text-gray-300 text-base sm:text-lg">“The first principle is that you must not fool yourself—and you are the easiest person to fool.”<br><span class="block mt-2 text-sm text-gray-500 dark:text-gray-400">— Richard Feynman</span></blockquote>
+        
+        <!-- Buttons (Contact, Resume Download, and View Projects) -->
+        <div class="flex flex-col md:flex-row md:justify-start justify-center md:space-x-4 space-y-2 md:space-y-0 mb-6 md:mb-8">
+          <!-- Contact Me Button -->
+          <a href="mailto:maahsan@mun.ca" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+            <i class="fas fa-envelope mr-2"></i>
+            Contact Me
+          </a>
+          <!-- Resume Download Button -->
+          <a href="assets/Adeel Resume.pdf" download class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+            <i class="fas fa-file-download mr-2"></i>
+            Resume
+          </a>
+          <!-- View Projects Button -->
+          <a href="#projects" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+            <i class="fas fa-project-diagram mr-2"></i>
+            View Projects
+          </a>
+        </div>
+        
+        <!-- Social Icons (Removed phone; Added Instagram, YouTube, Spotify) -->
+        <div class="flex md:justify-start justify-center space-x-6">
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/adeelahsaanawan" target="_blank" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+            <i class="fab fa-linkedin text-3xl"></i>
+          </a>
+          
+          <!-- GitHub -->
+          <a href="https://github.com/adeelahsaanawan" target="_blank" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+            <i class="fab fa-github text-3xl"></i>
+          </a>
+          
+          <!-- Instagram -->
+          <a href="https://instagram.com/aeronautyy" target="_blank" class="text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400">
+            <i class="fab fa-instagram text-3xl"></i>
+          </a>
+          
+          <!-- YouTube -->
+          <a href="https://youtube.com/c/aeronautyy" target="_blank" class="text-gray-600 hover:text-red-600 dark:text-gray-300 dark:hover:text-red-400">
+            <i class="fab fa-youtube text-3xl"></i>
+          </a>
+          
+          <!-- Spotify -->
+          <a href="https://open.spotify.com/artist/38Qp2UxIcMSlAY1YYBJBaW?si=5wEvxL-gQeyDFsJGJcYR1w" target="_blank" class="text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400">
+            <i class="fab fa-spotify text-3xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Side: Image or Illustration -->
+      <div class="md:w-1/2 flex justify-center md:justify-end items-center">
+        <div class="relative">
+          <img src="assets/adeel2.jpg" alt="Adeel Ahsan" class="w-48 sm:w-72 md:w-96 xl:w-[28rem] h-auto max-w-full object-cover rounded-full shadow-2xl border-4 border-blue-200 dark:border-blue-800 mt-4 md:mt-8 transition-all duration-300 hover:shadow-3xl hover:scale-105" />
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Professional Experience</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Experience 2 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Memorial University, St. Johns, Canada</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">Sep 2023 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Graduate Research & Teaching Assistant</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Nonlinear model predictive control design of a quadrotor</li>
+                            <li>Optimal waypoint navigation for a drone with dynamics and obstacle constraints</li>
+                            <li>Hardware in loop simulation setup for DJI M300 drone using ROS and OSDK</li>
+                            <li>Convex feasible corridor generation in a cluttered obstacles environment</li>
+                            <li>Teaching assistant for Mechatronics-I,II and Control Systems and Instrumentation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                                <!-- Experience 1 -->
+                                <div class="relative pl-8 timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Mitacs BSI Internship (Lab2Market Validate)</h3>
+                                            <span class="text-blue-600 dark:text-blue-400 font-medium">Sep 2024 – Nov 2024</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Market Validation & Customer Discovery Lead</p>
+                                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                                            <li>Validated UAV-based sea-ice monitoring solutions through rigorous market research and customer discovery</li>
+                                            <li>Conducted 60+ stakeholder interviews with ship captains, coast guards, and satellite providers</li>
+                                            <li>Identified critical market gaps: 12-24h data latency, ≥1km spatial resolution, and inaccurate ice classification</li>
+                                            <li>Established fixed-wing long-endurance UAS as optimal platform for sub-meter real-time ice classification</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                <!-- Experience 2 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Turkish Aerospace, Islamabad, Pakistan</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">Apr 2023 - Sep 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Control Design Engineer</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Programmatic trimming and linearization of nonlinear models</li>
+                            <li>Development of longitudinal and lateral flight control design for a fighter jet aircraft</li>
+                            <li>Autonomous landing system design and safe-landing region prediction</li>
+                            <li>Software and hardware in loop testing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Experience 3 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Advanced Rocket Technologies, London, UK</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">Jan 2023 - Sep 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">GNC Engineer (Part Time)</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Development of nonlinear 6 DOF flight simulator and control design for a sounding rocket</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Experience 4 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">National Engineering & Scientific Commission</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">Aug 2021 - Apr 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Assistant Manager</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Development of 6 DOF nonlinear flight simulators for different aerospace systems</li>
+                            <li>Design and development of flight control system for aerial vehicles</li>
+                            <li>Software in loop testing of controllers in embedded C++ code</li>
+                            <li>System identification of actuators and dynamical models of aerospace systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 5 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">AZoNetwork</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">Jan 2022 - Oct 2022</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Technical Writer</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Writing technical articles on robotics, AI, sensors, and nanotechnology</li>
+                            <li>Conducting observational studies to improve understanding and content</li>
+                            <li>Creating customized marketing-aligned content based on client needs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 6 -->
+                <div class="relative pl-8 timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">National Engineering & Scientific Commission</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">July 2020 - Aug 2020</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Intern</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Mathematical modeling and development of 6 DOF simulation for a quadrotor</li>
+                            <li>Implemented various control strategies including loop shaping, PID, LQI, and H-infinity on a quadrotor</li>
+                            <li>Implementation and flight testing for different control strategies on APM 2.8 autopilot</li>
+                            <li>Calibration, pre and post flight testing of APM 2.8 based quadrotor</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Experience Section -->
+    <section id="teaching" class="section py-16 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Teaching Experience</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-600">
+                        <thead class="bg-gray-50 dark:bg-slate-700">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Term</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Course</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Institution</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">2025 (Spring)</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Mechatronics II; Instrumentation <span class="text-blue-600 dark:text-blue-400">• TA</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Memorial University</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">2025 (Winter)</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Mechatronics I; Control Systems I <span class="text-blue-600 dark:text-blue-400">• TA</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Memorial University</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">2024 (Fall)</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Computer-Aided Engineering <span class="text-blue-600 dark:text-blue-400">• TA</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Memorial University</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">2024 (Summer)</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Control Systems II; Instrumentation <span class="text-blue-600 dark:text-blue-400">• TA</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Memorial University</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">2024 (Winter)</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Mechatronics I <span class="text-blue-600 dark:text-blue-400">• TA</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Memorial University</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section py-16 bg-gray-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Education</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
+                <!-- Education 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700 h-full flex flex-col">
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Memorial University of Newfoundland</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">2023 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4">Master of Engineering in Electrical Engineering</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">GPA: 4.0/4.0</p>
+                        <p class="text-gray-700 dark:text-gray-300">Thesis: Model Based Optimal Trajectory Generation and Disturbance Aware Predictive Control Design of a Quadrotor</p>
+                    </div>
+                    <div class="mt-6">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200">Current</span>
+                    </div>
+                </div>
+                
+                <!-- Education 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Institute of Space Technology, Pakistan</h3>
+                        <span class="text-blue-600 dark:text-blue-400 font-medium">2017 - 2021</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 italic mb-4">Bachelor of Science in Aerospace Engineering</p>
+                    <p class="text-gray-700 dark:text-gray-300">GPA: 3.75/4.0</p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">Thesis: Robust Control of a Quadrotor: An ADRC Approach</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full dark:bg-green-900 dark:text-green-200">Graduated</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Awards -->
+            <div class="max-w-3xl mx-auto mt-16">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">Awards & Honors</h3>
+                
+                <div class="space-y-6">
+                    <!-- Award 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Fellow of the School of Graduate Studies</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">October 2024</p>
+                                <p class="mt-1 text-gray-600 dark:text-gray-300">This award is made in recognition of continued academic excellence throughout the program.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Award 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Ocean Idea Challenge Award</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">November 2024</p>
+                                <p class="mt-1 text-gray-600 dark:text-gray-300">For winning a <a href="https://www.oceanstartupproject.ca/idea-challenge" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" target="_blank">Ocean Idea Challenge</a> in solving ocean-related problems.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Award 4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Vice Chancellor's Gold Medal</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">August 2021</p>
+                                <p class="mt-1 text-gray-600 dark:text-gray-300">Awarded for the best final year project for class of 2021.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Award 5 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Government Fellowship Award</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">August 2018</p>
+                                <p class="mt-1 text-gray-600 dark:text-gray-300">Awarded a fully funded Government fellowship for Bachelor's degree at IST.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Award 6 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Chief Minister's Laptop Award</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">September 2017</p>
+                                <p class="mt-1 text-gray-600 dark:text-gray-300">Awarded for excellent performance in Matriculation examinations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Technical Skills</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Technical Skills -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Programming & Tools</h3>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">MATLAB/Simulink</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Python</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">C/C++</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">ROS</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">DJI OSDK</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Pixhawk/PX4</span>
+                    </div>
+                </div>
+                
+                <!-- Control Systems -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Control Systems</h3>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Nonlinear MPC</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">ADRC</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">PID/LQR/LQI</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Robust Control</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">NDI/INDI</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">MRAC</span>
+                    </div>
+                </div>
+                
+                <!-- Aerospace -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Aerospace Engineering</h3>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Flight Dynamics</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">6-DOF Simulations</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Trajectory Optimization</span>
+                        </span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Path Planning</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Convex Optimization</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">System Identification</span>
+                        <span class="skill-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Trimming & Linearization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section py-16 bg-gray-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Featured Projects</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
+                    A selection of my recent work in control systems, trajectory optimization, and aerospace engineering.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Quadrotor Dynamics Project -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-project-diagram text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Learning Quadrotor Dynamics with Neural Networks</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jun 2024 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Developed a dual neural network architecture to learn translational and rotational dynamics, featuring two feedforward networks with ReLU activation implemented in MATLAB.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Neural Networks</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Control Systems</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 1 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-helicopter text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">HITL for DJI M300</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Oct 2024 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Hardware-in-the-Loop simulation setup using ROS for DJI Matrice 300 drone with OSDK integration.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">ROS</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">DJI OSDK</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">MATLAB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-project-diagram text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Trajectory Optimization</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jul 2024 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Framework using differential flatness and Bézier curves for real-time trajectory planning in obstacle-dense environments.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Python</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Convex Optimization</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Bézier Curves</span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-chart-line text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Disturbance-aware NMPC</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jul 2024 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Nonlinear MPC integrated with extended state observers to estimate and compensate for external disturbances.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">NMPC</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-map text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Orthomosaic Mapping</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">May 2024 - Aug 2024</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            High-quality orthomosaic maps from satellite imagery using ORB algorithm and image stitching.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Python</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">OpenCV</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Image Processing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-rocket text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Interceptor Missile Simulation</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jun 2023 - Sep 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            6 DOF nonlinear simulation with proportional navigation guidance and autopilot integration.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Flight Dynamics</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Guidance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-helicopter text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">INDI Quadrotor Control</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Aug 2023 - Sep 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Implemented Incremental Nonlinear Dynamic Inversion (INDI) algorithm for quadrotor attitude and altitude control.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">INDI Control</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Attitude Control</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">MATLAB/Simulink</span>
+                        </div>
+                    </div>
+                </div>                
+                <!-- Project 6 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-helicopter text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Tilt Rotor UAV Simulation</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jul 2023 - Aug 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Detailed 6 DOF simulation model with actuator and sensor models for realistic flight conditions.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">Simulink</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">UAV</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">System ID</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hidden projects that will be shown when "Load More" is clicked -->
+            <div id="more-projects" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                <!-- Project 7 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-helicopter text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Fixed Wing UAV Simulation</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Nov 2022 - Jan 2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            High-fidelity nonlinear 6 DOF simulation with stability augmentation systems and autopilot.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Flight Dynamics</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Autopilot</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 8 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-shield-alt text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Quadrotor ADRC Control</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Oct 2021 - Apr 2022</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Nonlinear active disturbance rejection control strategy with comparison to traditional methods.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">ADRC</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Robust Control</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 9 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-fighter-jet text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Supersonic Fighter Jet Design</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jan 2020 - Jul 2020</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Comprehensive design study with aerodynamic performance analysis using CFD tools.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Ansys Fluent</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">CFD</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Aircraft Design</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 10 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-wind text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">High Aspect Ratio Wing Analysis</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jun 2020 - Jul 2020</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            CFD analysis and one-way fluid-structure interaction analysis of a high aspect ratio wing.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Ansys</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">CFD</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">FSI</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 11 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-space-shuttle text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">F104 Aircraft Autopilot</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jan 2020 - Feb 2020</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Longitudinal and lateral autopilot systems design with control laws for various flight modes.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Autopilot</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Flight Control</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 12 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                    <div class="h-48 bg-blue-50 flex items-center justify-center dark:bg-slate-700">
+                        <i class="fas fa-jet-fighter text-6xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">MiG 29 Performance Analysis</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Jan 2019 - Aug 2019</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Detailed performance analysis evaluating thrust, drag, and fuel efficiency metrics.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">MATLAB</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">Aircraft Performance</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">Flight Dynamics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="load-more" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                    <i class="fas fa-plus-circle mr-2"></i> Load More Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="section py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Publications</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-700 dark:border-slate-600">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                                <i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Active Disturbance Rejection Control of a Quadrotor: A Comparative Study</h3>
+                            <p class="text-gray-600 dark:text-gray-300">M. A. Ahsan, H. Zeeshan Iqbal Khan, J. Rajput and J. Riaz</p>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                                2022 19th International Bhurban Conference on Applied Sciences and Technology (IBCAST), Islamabad, Pakistan, 2022, pp. 444-450.
+                            </p>
+                            <div class="mt-4">
+                                <a href="https://ieeexplore.ieee.org/document/9990161" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                    <i class="fas fa-external-link-alt mr-2"></i> View Publication
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps and Tools Section -->
+    <section id="apps-tools" class="section py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Apps & Tools</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
+                    A collection of applications and tools I use in my work and research.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Featured Tool - PID Tuner -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow col-span-full mb-8">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-sliders-h text-3xl text-blue-600 dark:text-blue-400 mr-4"></i>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">Online PID Tuner</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mt-1">Interactive PID controller analysis and tuning tool</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        A free, web-based application for designing and analyzing PID control systems. Features interactive Bode plots, step response analysis, and performance metrics calculation.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="pid-tuner.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Learn More
+                        </a>
+                        <a href="https://pid-tuner.onrender.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            Launch App
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<!-- Contact Section -->
+<section class="section py-16 bg-gray-50 dark:bg-slate-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Get In Touch</h2>
+      <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+      <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
+        Have a project in mind or want to discuss potential opportunities? Feel free to reach out!
+      </p>
+    </div>
+    
+    <div class="max-w-6xl mx-auto">
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Contact Form -->
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Send Me a Message</h3>
+            <form id="contactForm" action="https://formspree.io/f/xjkyjnly" method="POST" class="space-y-6" onsubmit="return validateForm()">
+              <!-- CSRF Token -->
+              <input type="hidden" name="_csrf" id="csrfToken" value="">
+              <!-- Honeypot field -->
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+              <!-- Timestamp -->
+              <input type="hidden" name="_timestamp" id="formTimestamp" value="">
+              <!-- User Agent -->
+              <input type="hidden" name="_user_agent" id="userAgent" value="">
+              <!-- Page URL -->
+              <input type="hidden" name="_page_url" id="pageUrl" value="">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name Input -->
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                  <input type="text" id="name" name="name" required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white"
+                    placeholder="Your Name">
+                </div>
+                
+                <!-- Email Input -->
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                  <input type="email" id="email" name="email" required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white"
+                    placeholder="your.email@example.com">
+                </div>
+              </div>
+              
+              <!-- Subject Input -->
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                <input type="text" id="subject" name="subject" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white"
+                  placeholder="How can I help you?">
+              </div>
+              
+              <!-- Message Textarea -->
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                <textarea id="message" name="message" rows="4" required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white"
+                  placeholder="Your message here..."></textarea>
+              </div>
+              
+              <!-- Submit Button -->
+              <div class="text-right">
+                <button type="submit"
+                  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                  <i class="fas fa-paper-plane mr-2"></i> Send Message
+                </button>
+              </div>
+              
+              <!-- Form Status Messages -->
+              <div id="form-status" class="hidden p-4 rounded-md">
+                <p class="text-sm"></p>
+              </div>
+            </form>
+    
+    <script>
+    // Generate CSRF token
+    function generateCSRFToken() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    
+    // Set security tokens when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set CSRF token
+      document.getElementById('csrfToken').value = generateCSRFToken();
+      // Set timestamp
+      document.getElementById('formTimestamp').value = new Date().toISOString();
+      // Set user agent
+      document.getElementById('userAgent').value = navigator.userAgent;
+      // Set page URL
+      document.getElementById('pageUrl').value = window.location.href;
+      
+      // Store form submission time
+      localStorage.setItem('lastFormSubmission', '0');
+    });
+    
+    // Form validation
+    function validateForm() {
+      // Rate limiting - 1 submission per 30 seconds
+      const lastSubmission = localStorage.getItem('lastFormSubmission');
+      const now = Math.floor(Date.now() / 1000);
+      
+      if (now - lastSubmission < 30) {
+        alert('Please wait before submitting the form again.');
+        return false;
+      }
+      
+      // Honeypot check
+      const honeypot = document.querySelector('input[name="_gotcha"]').value;
+      if (honeypot) {
+        return false; // Bot detected
+      }
+      
+      // Update last submission time
+      localStorage.setItem('lastFormSubmission', now.toString());
+      
+      return true;
+    }
+    </script>
+          </div>
+          
+          <!-- Contact Information -->
+          <div class="lg:border-l lg:border-gray-200 lg:dark:border-slate-700 lg:pl-8">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+            <div class="space-y-6">
+              <!-- Email -->
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fas fa-envelope text-lg"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">Email</p>
+                  <a href="mailto:maahsan@mun.ca" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">maahsan@mun.ca</a>
+                </div>
+              </div>
+              
+              <!-- LinkedIn -->
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fab fa-linkedin-in text-lg"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">LinkedIn</p>
+                  <a href="https://linkedin.com/in/adeelahsaanawan" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                    linkedin.com/in/adeelahsaanawan
+                  </a>
+                </div>
+              </div>
+              
+              <!-- GitHub -->
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fab fa-github text-lg"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">GitHub</p>
+                  <a href="https://github.com/adeelahsaanawan" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                    github.com/adeelahsaanawan
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Instagram -->
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-pink-100 text-pink-600 dark:bg-pink-900/30 dark:text-pink-300">
+                    <i class="fab fa-instagram text-lg"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">Instagram</p>
+                  <a href="https://instagram.com/aeronautyy" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-pink-800 dark:text-pink-400 dark:hover:text-pink-300 font-medium">
+                    @aeronautyy
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
+              <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-3">Location</h4>
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-300">
+                    <i class="fas fa-map-marker-alt text-lg"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 dark:text-gray-300">St. John's, NL, Canada</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-slate-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-600 dark:text-gray-300">&copy; 2024 Adeel Ahsan. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://linkedin.com/in/adeelahsaanawan" target="_blank" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/adeelahsaanawan" target="_blank" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="mailto:maahsan@mun.ca" class="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Improved Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Improved Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        
+        function setTheme(darkMode) {
+            if (darkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Initialize theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Initialize Parallax
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add parallax to hero section
+            const heroSection = document.getElementById('home');
+            const heroContent = heroSection.querySelector('.hero-content');
+            
+            // Add parallax effect to background
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                heroSection.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+                
+                // Subtle parallax for content
+                if (heroContent) {
+                    heroContent.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+                }
+            });
+
+            // Add parallax to project cards on hover
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleX = (y - centerY) / 20;
+                    const angleY = (centerX - x) / 20;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.transition = 'transform 0.1s ease-out';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    card.style.transition = 'transform 0.3s ease-out';
+                });
+            });
+        });
+
+        // Theme toggle event listeners
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(!isDark);
+            localStorage.theme = isDark ? 'light' : 'dark';
+        });
+        mobileThemeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(!isDark);
+            localStorage.theme = isDark ? 'light' : 'dark';
+        });
+
+        // Smooth Section Transitions
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+
+        // Page Load Animation
+        window.addEventListener('load', () => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        });
+
+        // Load More Projects Button
+        const loadMoreButton = document.getElementById('load-more');
+        const moreProjects = document.getElementById('more-projects');
+
+        loadMoreButton.addEventListener('click', () => {
+            moreProjects.classList.remove('hidden');
+            loadMoreButton.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

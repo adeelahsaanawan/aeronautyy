@@ -1,0 +1,7 @@
+# Security Policy for aeronautyy.com
+Contact: mailto:your-email@example.com
+Contact: https://github.com/adeelahsaanawan/security
+Encryption: https://github.com/adeelahsaanawan.gpg
+Acknowledgments: https://github.com/adeelahsaanawan/security/security/advisories
+Policy: https://github.com/adeelahsaanawan/security/policy
+Expires: 2025-12-31T23:59:59.999Z
