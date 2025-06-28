@@ -3,13 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PID Tuner - Adeel Ahsan</title>
+    <title>Online PID Tuner App | Free Control Systems Analysis Tool by Adeel Ahsan</title>
+    <meta name="description" content="Free online PID controller tuning and analysis tool. Interactive Bode plots, step response analysis, and performance metrics. Developed by Adeel Ahsan, Aerospace Engineer at Memorial University, St. John's, Canada.">
+    <meta name="keywords" content="PID Tuner, Control Systems, PID Controller, Bode Plot, Step Response, Control Theory, Engineering Tools, MATLAB Alternative, Online Control Analysis, Free Engineering Software, Aerospace Engineering, Memorial University, St Johns Canada, Control Systems Design, System Analysis, Performance Metrics, Gain Margin, Phase Margin, Rise Time, Settling Time, Flask Application, Python Control, Interactive Plots, Engineering Education, Control Engineering, Automatic Control, Feedback Control, Loop Shaping, Frequency Response, Time Domain Analysis">
+    <meta name="author" content="Adeel Ahsan">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PID Tuner by Adeel Ahsan">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pid-tuner.onrender.com" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+
+    <!-- Location-based SEO -->
+    <meta name="geo.region" content="CA-NL">
+    <meta name="geo.placename" content="St. John's, Newfoundland and Labrador, Canada">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Online PID Tuner App",
+      "description": "Free web-based tool for interactive PID controller analysis and tuning with Bode plots and step response visualization",
+      "url": "https://pid-tuner.onrender.com",
+      "applicationCategory": "Engineering Software",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Adeel Ahsan",
+        "jobTitle": "Aerospace Engineer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Memorial University of Newfoundland",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "St. John's",
+            "addressRegion": "NL",
+            "addressCountry": "CA"
+          }
+        }
+      },
+      "featureList": [
+        "Interactive Bode plots",
+        "Step response analysis",
+        "Real-time PID tuning",
+        "Performance metrics calculation",
+        "Gain and phase margin analysis",
+        "Rise time and settling time calculation"
+      ],
+      "keywords": ["PID controller", "control systems", "Bode plot", "step response", "engineering tools"]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class'
         }
     </script>
+    <link rel="icon" type="image/png" href="assets/icon.png?1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -61,7 +141,7 @@
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="nav-link text-gray-800 hover:text-blue-600 px-3 py-2 text-sm font-medium dark:text-gray-200">Back to Portfolio</a>
-                    <button id="theme-toggle" class="text-gray-800 dark:text-gray-200 hover:text-blue-600">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                         <i class="fas fa-moon dark:hidden"></i>
                         <i class="fas fa-sun hidden dark:block"></i>
                     </button>
@@ -246,11 +326,12 @@
             }
         }
 
-        // Initialize theme
+        // Initialize theme - force light mode by default
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            setTheme(true);
+            document.documentElement.classList.add('dark');
         } else {
-            setTheme(false);
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
         }
 
         // Theme toggle event listeners
@@ -279,6 +360,17 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // Listen for storage changes to sync theme across tabs
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'theme') {
+                if (e.newValue === 'dark') {
+                    setTheme(true);
+                } else {
+                    setTheme(false);
+                }
+            }
         });
     </script>
 </body>

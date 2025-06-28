@@ -1,0 +1,36 @@
+# Redirects for Cloudflare Pages
+
+# Redirect common variations to canonical URLs
+/home /
+/index /
+/index.htm /
+/index.php /
+
+# Redirect old URLs if any
+/portfolio /
+/services /drone-portfolio.html
+/contact /#contact
+
+# Redirect www to non-www (if needed)
+https://www.aeronautyy.com/* https://aeronautyy.com/:splat 301!
+
+# Redirect HTTP to HTTPS
+http://aeronautyy.com/* https://aeronautyy.com/:splat 301!
+http://www.aeronautyy.com/* https://aeronautyy.com/:splat 301!
+
+# Handle 404s
+/* /index.html 404
+
+# Prerender for better SEO (if using SPA)
+/drone-portfolio.html /drone-portfolio.html 200
+/pid-tuner.html /pid-tuner.html 200
+
+# API redirects (if needed in future)
+/api/* https://api.aeronautyy.com/:splat 200
+
+# Social media redirects
+/linkedin https://linkedin.com/in/adeelahsaanawan 302
+/github https://github.com/adeelahsaanawan 302
+/instagram https://instagram.com/aeronautyy 302
+/youtube https://youtube.com/c/aeronautyy 302
+/spotify https://open.spotify.com/artist/38Qp2UxIcMSlAY1YYBJBaW 302

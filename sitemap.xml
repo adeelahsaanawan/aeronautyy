@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!-- Main Portfolio Page -->
+  <url>
+    <loc>https://aeronautyy.com/</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/adeel2.jpg</image:loc>
+      <image:title>Adeel Ahsan - Aerospace Engineer</image:title>
+      <image:caption>Aerospace Engineer and certified drone pilot specializing in control systems and UAV technology</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Drone Portfolio Page -->
+  <url>
+    <loc>https://aeronautyy.com/drone-portfolio.html</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/DJIAvata2.jpg</image:loc>
+      <image:title>Professional Drone Services</image:title>
+      <image:caption>Professional drone services in St. John's, Newfoundland including aerial photography and videography</image:caption>
+    </image:image>
+  </url>
+
+  <!-- PID Tuner App Page -->
+  <url>
+    <loc>https://aeronautyy.com/pid-tuner.html</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Resume PDF -->
+  <url>
+    <loc>https://aeronautyy.com/assets/Adeel%20Resume.pdf</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- External PID Tuner Application -->
+  <url>
+    <loc>https://pid-tuner.onrender.com</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
