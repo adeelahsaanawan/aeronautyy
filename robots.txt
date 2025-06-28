@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemap locations
 Sitemap: https://aeronautyy.com/sitemap.xml
+Sitemap: https://aeronautyy.com/sitemap-images.xml
+Sitemap: https://aeronautyy.com/sitemap-index.xml
 
 # Allow all major search engines
 User-agent: Googlebot

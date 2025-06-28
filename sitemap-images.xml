@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Main Portfolio Page Images -->
+  <url>
+    <loc>https://aeronautyy.com/</loc>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/adeel2.jpg</image:loc>
+      <image:title>Adeel Ahsan - Aerospace Engineer</image:title>
+      <image:caption>Aerospace Engineer and certified drone pilot specializing in control systems and UAV technology in St. John's, Newfoundland</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/adeel.jpg</image:loc>
+      <image:title>Adeel Ahsan Professional Photo</image:title>
+      <image:caption>Professional photo of Adeel Ahsan, aerospace engineer and drone services provider</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Drone Portfolio Page Images -->
+  <url>
+    <loc>https://aeronautyy.com/drone-portfolio.html</loc>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/DJIAvata2.jpg</image:loc>
+      <image:title>DJI Avata 2 Professional Drone</image:title>
+      <image:caption>DJI Avata 2 drone used for professional FPV videography and aerial photography services in St. John's, Newfoundland</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/DJIController3.jpg</image:loc>
+      <image:title>DJI Controller 3 Remote Control</image:title>
+      <image:caption>Professional DJI Controller 3 for precise drone control and aerial photography operations</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/X500V2Drone.webp</image:loc>
+      <image:title>X500 V2 Professional Drone</image:title>
+      <image:caption>X500 V2 professional drone for advanced aerial photography and mapping services</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/assets/radiomasterBoxer.webp</image:loc>
+      <image:title>Radiomaster Boxer FPV Controller</image:title>
+      <image:caption>Radiomaster Boxer controller for professional FPV drone operations and videography</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
