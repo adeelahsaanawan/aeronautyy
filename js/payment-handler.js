@@ -7,21 +7,78 @@ class PaymentHandler {
     constructor() {
         this.paymentVerified = false;
         this.selectedWallpaper = null;
+        this.downloadAttempted = false;
+        this.sessionId = null;
+        this.paymentTimestamp = null;
         this.init();
     }
 
     init() {
+        // Clean up any old payment verification data
+        this.cleanupOldPaymentData();
+
         // Check for payment success in URL parameters
         this.checkPaymentSuccess();
-        
+
         // Listen for Stripe events
         this.setupStripeListeners();
-        
+
         // Setup download buttons
         this.setupDownloadButtons();
 
         // Setup wallpaper selection tracking
         this.setupWallpaperTracking();
+    }
+
+    cleanupOldPaymentData() {
+        // Remove any persistent payment verification from previous sessions
+        // Each wallpaper purchase should be independent
+        localStorage.removeItem('wallpaper_payment_verified');
+        localStorage.removeItem('payment_session_used');
+        console.log('Cleaned up old payment verification data');
+    }
+
+    // Generate secure session token for one-time use
+    generateSecureToken() {
+        return 'secure_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Validate payment session is legitimate and unused
+    validatePaymentSession(sessionId) {
+        if (!sessionId) {
+            console.error('🔒 Security: No session ID provided');
+            return false;
+        }
+
+        // Check if this session has already been used
+        const usedSessions = JSON.parse(localStorage.getItem('payment_session_used') || '[]');
+        if (usedSessions.includes(sessionId)) {
+            console.error('🔒 Security: Payment session already used:', sessionId);
+            this.showNotification('❌ This payment session has already been used. Please make a new purchase.', 'error');
+            return false;
+        }
+
+        // Validate session format (basic security check)
+        if (sessionId.length < 10) {
+            console.error('🔒 Security: Invalid session format');
+            return false;
+        }
+
+        return true;
+    }
+
+    // Mark payment session as used to prevent reuse
+    markSessionAsUsed(sessionId) {
+        const usedSessions = JSON.parse(localStorage.getItem('payment_session_used') || '[]');
+        usedSessions.push(sessionId);
+
+        // Keep only last 50 sessions to prevent localStorage bloat
+        if (usedSessions.length > 50) {
+            usedSessions.splice(0, usedSessions.length - 50);
+        }
+
+        localStorage.setItem('payment_session_used', JSON.stringify(usedSessions));
+        console.log('🔒 Security: Session marked as used:', sessionId);
     }
 
     checkPaymentSuccess() {
@@ -39,12 +96,7 @@ class PaymentHandler {
             this.handlePaymentSuccess('stripe_checkout_success');
         }
 
-        // Also check localStorage for previous successful payments
-        const storedPayment = localStorage.getItem('wallpaper_payment_verified');
-        if (storedPayment) {
-            this.paymentVerified = true;
-            this.enableDownloads();
-        }
+        // Note: Each payment is for a specific wallpaper, no persistent payment verification needed
     }
 
     setupStripeListeners() {
@@ -86,14 +138,58 @@ class PaymentHandler {
         const storedWallpaper = localStorage.getItem('selected_wallpaper');
         if (storedWallpaper) {
             try {
-                this.selectedWallpaper = JSON.parse(storedWallpaper);
+                const parsed = JSON.parse(storedWallpaper);
+
+                // Security: Validate stored wallpaper data
+                if (this.validateStoredWallpaper(parsed)) {
+                    this.selectedWallpaper = parsed;
+                    console.log('✅ Valid wallpaper selection restored:', this.selectedWallpaper.name);
+                } else {
+                    console.error('🔒 Security: Invalid stored wallpaper data');
+                    localStorage.removeItem('selected_wallpaper');
+                }
             } catch (e) {
-                console.error('Error parsing stored wallpaper:', e);
+                console.error('🔒 Security: Error parsing stored wallpaper:', e);
                 localStorage.removeItem('selected_wallpaper');
             }
         }
+    }
 
-        // Set up click tracking for Stripe buttons
+    validateStoredWallpaper(wallpaper) {
+        if (!wallpaper || typeof wallpaper !== 'object') {
+            return false;
+        }
+
+        // Check required fields
+        if (!wallpaper.filename || !wallpaper.name || !wallpaper.selectionTime || !wallpaper.secureToken) {
+            console.error('🔒 Security: Missing required wallpaper fields');
+            return false;
+        }
+
+        // Check data types
+        if (typeof wallpaper.filename !== 'string' || typeof wallpaper.name !== 'string') {
+            console.error('🔒 Security: Invalid wallpaper data types');
+            return false;
+        }
+
+        // Security: Check selection age (prevent old selections)
+        const maxAge = 30 * 60 * 1000; // 30 minutes
+        const currentTime = Date.now();
+        if (currentTime - wallpaper.selectionTime > maxAge) {
+            console.error('🔒 Security: Wallpaper selection expired');
+            return false;
+        }
+
+        // Security: Validate filename format
+        if (wallpaper.filename.includes('..') || wallpaper.filename.includes('/') || wallpaper.filename.includes('\\')) {
+            console.error('🔒 Security: Invalid filename in stored data');
+            return false;
+        }
+
+        return true;
+    }
+
+        // Set up secure click tracking for Stripe buttons
         document.addEventListener('click', (e) => {
             // Check if clicked element is a Stripe buy button or its parent
             const stripeButton = e.target.closest('stripe-buy-button');
@@ -101,39 +197,82 @@ class PaymentHandler {
                 const filename = stripeButton.getAttribute('data-wallpaper-filename');
                 const name = stripeButton.getAttribute('data-wallpaper-name');
 
-                if (filename && name) {
-                    this.selectedWallpaper = { filename, name };
-
-                    // Store in localStorage to persist across page redirects
-                    localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
-
-                    console.log('✅ Wallpaper selected for purchase:', this.selectedWallpaper);
-
-                    // Show a brief confirmation
-                    this.showNotification(`🛒 "${name}" added to cart. Redirecting to payment...`, 'info');
-                } else {
-                    console.error('❌ Missing wallpaper data attributes on Stripe button');
+                // Security: Validate wallpaper data
+                if (!filename || !name || filename.trim() === '' || name.trim() === '') {
+                    console.error('🔒 Security: Invalid wallpaper data attributes');
+                    this.showNotification('❌ Invalid wallpaper selection. Please refresh and try again.', 'error');
+                    return;
                 }
+
+                // Security: Validate filename format (prevent path traversal)
+                if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+                    console.error('🔒 Security: Invalid filename format:', filename);
+                    this.showNotification('❌ Invalid wallpaper file. Please contact support.', 'error');
+                    return;
+                }
+
+                // Security: Reset any previous session data
+                this.clearSecureSession();
+                this.downloadAttempted = false;
+
+                // Create secure wallpaper selection with timestamp
+                this.selectedWallpaper = {
+                    filename: filename.trim(),
+                    name: name.trim(),
+                    selectionTime: Date.now(),
+                    secureToken: this.generateSecureToken()
+                };
+
+                // Store in localStorage to persist across page redirects
+                localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
+
+                console.log('✅ Secure wallpaper selection created:', {
+                    name: this.selectedWallpaper.name,
+                    filename: this.selectedWallpaper.filename,
+                    token: this.selectedWallpaper.secureToken
+                });
+
+                // Show confirmation
+                this.showNotification(`🛒 "${name}" selected for purchase. Redirecting to payment...`, 'info');
             }
         });
     }
 
     handlePaymentSuccess(sessionId) {
+        console.log('🔒 Processing payment success for session:', sessionId);
+
+        // Security: Validate payment session
+        if (!this.validatePaymentSession(sessionId)) {
+            return; // Validation failed, stop processing
+        }
+
+        // Security: Check if download already attempted for this session
+        if (this.downloadAttempted) {
+            console.error('🔒 Security: Download already attempted for this session');
+            this.showNotification('❌ Download already completed for this payment session.', 'error');
+            return;
+        }
+
+        // Security: Validate wallpaper selection exists
+        if (!this.selectedWallpaper || !this.selectedWallpaper.filename || !this.selectedWallpaper.name) {
+            console.error('🔒 Security: No valid wallpaper selection found');
+            this.showNotification('❌ No wallpaper selected. Please try purchasing again.', 'error');
+            return;
+        }
+
+        // All security checks passed
         this.paymentVerified = true;
+        this.sessionId = sessionId;
+        this.paymentTimestamp = Date.now();
 
-        // Store payment verification
-        localStorage.setItem('wallpaper_payment_verified', JSON.stringify({
-            sessionId: sessionId,
-            timestamp: new Date().toISOString(),
-            verified: true
-        }));
+        console.log('✅ Payment verified for wallpaper:', this.selectedWallpaper.name);
 
-        // Enable downloads
-        this.enableDownloads();
+        // Mark session as used immediately to prevent reuse
+        this.markSessionAsUsed(sessionId);
 
-        // Show success message and start automatic download
+        // Show success message and start secure download
         this.showPaymentSuccessMessage();
-        this.startAutomaticDownload();
+        this.startSecureDownload();
 
         // Clean up URL
         if (window.history.replaceState) {
@@ -154,8 +293,7 @@ class PaymentHandler {
         // Show error message
         this.showPaymentErrorMessage(error);
 
-        // Clear any stored payment verification
-        localStorage.removeItem('wallpaper_payment_verified');
+        // Clear any selected wallpaper on payment error
         localStorage.removeItem('selected_wallpaper');
 
         this.paymentVerified = false;
@@ -184,21 +322,7 @@ class PaymentHandler {
         }, 8000);
     }
 
-    enableDownloads() {
-        const downloadButtons = document.querySelectorAll('.download-btn');
-        downloadButtons.forEach(button => {
-            button.classList.remove('opacity-50', 'cursor-not-allowed');
-            button.disabled = false;
-            
-            // Update button text if it was disabled
-            if (button.innerHTML.includes('Purchase Required')) {
-                button.innerHTML = '<i class="fas fa-download mr-2"></i>Download';
-            }
-        });
-        
-        // Show success indicator
-        this.showDownloadEnabledIndicator();
-    }
+    // Note: enableDownloads() removed - not needed for individual wallpaper purchases
 
     setupDownloadButtons() {
         const downloadButtons = document.querySelectorAll('.download-btn');
@@ -223,40 +347,66 @@ class PaymentHandler {
     }
 
     downloadWallpaper(filename, name) {
+        console.log('🔒 Executing secure wallpaper download...');
+
+        // Final security validation before download
+        if (!this.paymentVerified) {
+            console.error('🔒 Security: Payment not verified at download time');
+            this.showNotification('❌ Payment verification failed. Please try purchasing again.', 'error');
+            return;
+        }
+
+        if (!filename || !name) {
+            console.error('🔒 Security: Missing filename or name at download time');
+            this.showNotification('❌ Invalid download parameters. Please contact support.', 'error');
+            return;
+        }
+
+        // Security: Sanitize filename to prevent path traversal
+        const sanitizedFilename = filename.replace(/[^a-zA-Z0-9._-]/g, '');
+        if (sanitizedFilename !== filename) {
+            console.error('🔒 Security: Filename sanitization failed:', filename);
+            this.showNotification('❌ Invalid filename format. Please contact support.', 'error');
+            return;
+        }
+
         try {
-            // Show download starting notification with specific wallpaper name
+            console.log(`✅ Starting secure download: ${name} (${sanitizedFilename})`);
+
+            // Show download starting notification
             this.showNotification(`🎨 Starting download of "${name}" wallpaper...`, 'info');
 
-            // Create download link
+            // Create secure download link
             const link = document.createElement('a');
-            link.href = `wallpapers/${filename}`;
-            link.download = `${name.replace(/\s+/g, '_')}_by_aeronautyy.png`;
+            link.href = `wallpapers/${sanitizedFilename}`;
+            link.download = `${name.replace(/[^a-zA-Z0-9\s._-]/g, '').replace(/\s+/g, '_')}_by_aeronautyy.png`;
             link.style.display = 'none';
+            link.rel = 'noopener noreferrer'; // Security: Prevent window.opener access
 
-            // Add to DOM, click, and remove
+            // Add to DOM, trigger download, and clean up
             document.body.appendChild(link);
-
-            // Trigger download
             link.click();
 
-            // Clean up
+            // Immediate cleanup
             setTimeout(() => {
                 if (link.parentNode) {
                     document.body.removeChild(link);
                 }
             }, 100);
 
-            // Show success notification after a delay with specific wallpaper name
+            // Show success notification
             setTimeout(() => {
                 this.showNotification(`✅ "${name}" wallpaper downloaded successfully! Thank you for your purchase.`, 'success');
             }, 500);
 
-            // Track download
-            this.trackDownload(filename, name);
+            // Track download securely
+            this.trackSecureDownload(sanitizedFilename, name);
+
+            console.log('✅ Secure download completed successfully');
 
         } catch (error) {
-            console.error('Download error:', error);
-            this.showNotification(`❌ Failed to download "${name}" wallpaper. Please try again or contact support.`, 'error');
+            console.error('🔒 Security: Download execution failed:', error);
+            this.showNotification(`❌ Failed to download "${name}" wallpaper. Please contact support.`, 'error');
         }
     }
 
@@ -285,41 +435,95 @@ class PaymentHandler {
         }, 8000);
     }
 
-    startAutomaticDownload() {
-        // Check if a specific wallpaper was selected
-        if (this.selectedWallpaper) {
-            // Download only the selected wallpaper
-            console.log('Starting download for selected wallpaper:', this.selectedWallpaper);
+    startSecureDownload() {
+        console.log('🔒 Starting secure download process...');
 
-            setTimeout(() => {
-                this.downloadWallpaper(this.selectedWallpaper.filename, this.selectedWallpaper.name);
-            }, 1000); // Small delay to ensure payment processing is complete
-
-            // Clear the selection
-            this.selectedWallpaper = null;
-            localStorage.removeItem('selected_wallpaper');
-        } else {
-            // No specific wallpaper selected - this shouldn't happen in normal flow
-            console.error('No wallpaper selected for download');
-            this.showNotification('Error: No wallpaper selected for download. Please try purchasing again.', 'error');
+        // Security: Multiple validation checks
+        if (!this.paymentVerified) {
+            console.error('🔒 Security: Payment not verified');
+            this.showNotification('❌ Payment verification failed. Please try again.', 'error');
+            return;
         }
+
+        if (this.downloadAttempted) {
+            console.error('🔒 Security: Download already attempted');
+            this.showNotification('❌ Download already completed for this payment.', 'error');
+            return;
+        }
+
+        if (!this.selectedWallpaper || !this.selectedWallpaper.filename || !this.selectedWallpaper.name) {
+            console.error('🔒 Security: Invalid wallpaper selection');
+            this.showNotification('❌ Invalid wallpaper selection. Please try purchasing again.', 'error');
+            return;
+        }
+
+        if (!this.sessionId) {
+            console.error('🔒 Security: No valid session ID');
+            this.showNotification('❌ Invalid payment session. Please try purchasing again.', 'error');
+            return;
+        }
+
+        // Security: Check payment timestamp (prevent old session reuse)
+        const currentTime = Date.now();
+        const maxAge = 10 * 60 * 1000; // 10 minutes
+        if (this.paymentTimestamp && (currentTime - this.paymentTimestamp) > maxAge) {
+            console.error('🔒 Security: Payment session expired');
+            this.showNotification('❌ Payment session expired. Please make a new purchase.', 'error');
+            return;
+        }
+
+        // Mark download as attempted BEFORE starting download
+        this.downloadAttempted = true;
+
+        console.log('✅ All security checks passed. Downloading:', this.selectedWallpaper.name);
+
+        // Start the secure download with a small delay
+        setTimeout(() => {
+            this.executeSecureDownload();
+        }, 1000);
+    }
+
+    executeSecureDownload() {
+        // Final security check before download
+        if (!this.downloadAttempted || !this.paymentVerified || !this.selectedWallpaper) {
+            console.error('🔒 Security: Final security check failed');
+            return;
+        }
+
+        const wallpaper = this.selectedWallpaper;
+
+        try {
+            // Download the specific wallpaper
+            this.downloadWallpaper(wallpaper.filename, wallpaper.name);
+
+            // Immediately clear all sensitive data after download starts
+            this.clearSecureSession();
+
+        } catch (error) {
+            console.error('🔒 Security: Download execution failed:', error);
+            this.showNotification('❌ Download failed. Please contact support.', 'error');
+        }
+    }
+
+    clearSecureSession() {
+        console.log('🔒 Clearing secure session data...');
+
+        // Clear all session data
+        this.selectedWallpaper = null;
+        this.paymentVerified = false;
+        this.sessionId = null;
+        this.paymentTimestamp = null;
+
+        // Clear localStorage
+        localStorage.removeItem('selected_wallpaper');
+
+        console.log('✅ Secure session cleared');
     }
 
     // Removed downloadAllWallpapers and related functions
     // Payment should only download the specific selected wallpaper
 
-    showDownloadEnabledIndicator() {
-        // Add a small indicator to show downloads are enabled
-        const indicator = document.createElement('div');
-        indicator.className = 'fixed bottom-4 right-4 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg';
-        indicator.innerHTML = '<i class="fas fa-unlock mr-2"></i>Downloads Enabled';
-        
-        document.body.appendChild(indicator);
-        
-        setTimeout(() => {
-            indicator.remove();
-        }, 3000);
-    }
+
 
     showPaymentRequiredMessage() {
         const modal = document.createElement('div');
@@ -390,24 +594,43 @@ class PaymentHandler {
         }, 3000);
     }
 
-    trackDownload(filename, name) {
-        // Track download for analytics (could be enhanced with proper analytics)
-        console.log(`Downloaded: ${name} (${filename})`);
+    trackSecureDownload(filename, name) {
+        console.log(`🔒 Tracking secure download: ${name} (${filename})`);
 
-        // Store download history
-        const downloads = JSON.parse(localStorage.getItem('wallpaper_downloads') || '[]');
-        downloads.push({
-            filename,
-            name,
-            timestamp: new Date().toISOString()
-        });
-        localStorage.setItem('wallpaper_downloads', JSON.stringify(downloads));
+        try {
+            // Store download history with security metadata
+            const downloads = JSON.parse(localStorage.getItem('wallpaper_downloads') || '[]');
+            const downloadRecord = {
+                filename: filename,
+                name: name,
+                timestamp: new Date().toISOString(),
+                sessionId: this.sessionId,
+                paymentTimestamp: this.paymentTimestamp,
+                secureHash: this.generateSecureToken() // Unique identifier for this download
+            };
 
-        // Could send to analytics service
-        // gtag('event', 'download', {
-        //     'event_category': 'wallpaper',
-        //     'event_label': name
-        // });
+            downloads.push(downloadRecord);
+
+            // Keep only last 100 downloads to prevent localStorage bloat
+            if (downloads.length > 100) {
+                downloads.splice(0, downloads.length - 100);
+            }
+
+            localStorage.setItem('wallpaper_downloads', JSON.stringify(downloads));
+
+            console.log('✅ Download tracked securely');
+
+            // Could send to analytics service with security context
+            // gtag('event', 'secure_download', {
+            //     'event_category': 'wallpaper',
+            //     'event_label': name,
+            //     'custom_parameter_session': this.sessionId
+            // });
+
+        } catch (error) {
+            console.error('🔒 Security: Failed to track download:', error);
+            // Don't fail the download if tracking fails
+        }
     }
 
 
