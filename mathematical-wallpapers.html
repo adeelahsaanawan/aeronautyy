@@ -316,13 +316,17 @@
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(147, 51, 234, 0.04));
             border: 1px solid rgba(59, 130, 246, 0.15);
             border-left: 3px solid #3b82f6;
-            padding: 1.5rem 1.25rem;
+            padding: 2rem 1.5rem;
             border-radius: 1rem;
-            overflow: hidden;
+            overflow: visible;
             max-width: 100%;
             position: relative;
             backdrop-filter: blur(12px);
             box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .dark .math-equation {
@@ -334,34 +338,30 @@
         /* Ensure KaTeX equations fit within containers */
         .math-equation .katex-display {
             margin: 0 !important;
-            overflow: hidden;
+            overflow: visible !important;
             text-align: center !important;
             padding: 0.5rem 0;
             word-wrap: break-word;
             max-width: 100%;
+            white-space: normal !important;
         }
 
         .math-equation .katex {
-            font-size: 1em !important;
+            font-size: 1.1em !important;
             color: #1e293b !important;
             line-height: 1.4 !important;
+            white-space: normal !important;
         }
 
         .dark .math-equation .katex {
             color: #f1f5f9 !important;
         }
 
-        /* Responsive equation sizing */
-        .math-equation .text-xs .katex {
-            font-size: 0.8em !important;
-        }
-
-        .math-equation .text-sm .katex {
-            font-size: 0.9em !important;
-        }
-
+        /* Standardized equation sizing - larger and more readable */
+        .math-equation .text-xs .katex,
+        .math-equation .text-sm .katex,
         .math-equation .text-base .katex {
-            font-size: 1em !important;
+            font-size: 1.1em !important;
         }
 
         /* Hide any potential scrollbars in equation containers */
@@ -450,48 +450,53 @@
 
         /* Enhanced responsive equation sizing */
         @media (max-width: 1024px) {
+            .math-equation {
+                padding: 1.75rem 1.25rem;
+                min-height: 120px;
+            }
+
             .math-equation .katex {
-                font-size: 0.95em !important;
+                font-size: 1.05em !important;
             }
 
-            .math-equation .text-xs .katex {
-                font-size: 0.75em !important;
-            }
-
-            .math-equation .text-sm .katex {
-                font-size: 0.85em !important;
+            .math-equation .text-xs .katex,
+            .math-equation .text-sm .katex,
+            .math-equation .text-base .katex {
+                font-size: 1.05em !important;
             }
         }
 
         @media (max-width: 768px) {
+            .math-equation {
+                padding: 1.5rem 1rem;
+                min-height: 110px;
+            }
+
             .math-equation .katex {
-                font-size: 0.9em !important;
+                font-size: 1em !important;
             }
 
-            .math-equation .text-xs .katex {
-                font-size: 0.7em !important;
-            }
-
-            .math-equation .text-sm .katex {
-                font-size: 0.8em !important;
+            .math-equation .text-xs .katex,
+            .math-equation .text-sm .katex,
+            .math-equation .text-base .katex {
+                font-size: 1em !important;
             }
         }
 
         @media (max-width: 640px) {
+            .math-equation {
+                padding: 1.25rem 0.75rem;
+                min-height: 100px;
+            }
+
             .math-equation .katex {
-                font-size: 0.85em !important;
+                font-size: 0.95em !important;
             }
 
-            .math-equation .text-xs .katex {
-                font-size: 0.65em !important;
-            }
-
-            .math-equation .text-sm .katex {
-                font-size: 0.75em !important;
-            }
-
+            .math-equation .text-xs .katex,
+            .math-equation .text-sm .katex,
             .math-equation .text-base .katex {
-                font-size: 0.85em !important;
+                font-size: 0.95em !important;
             }
         }
         
@@ -747,8 +752,6 @@
                 font-size: 1.25rem;
             }
 
-
-
             .wallpaper-card .math-equation {
                 min-height: 80px;
                 max-height: 120px;
@@ -759,6 +762,77 @@
                 left: 0.75rem;
                 right: 0.75rem;
             }
+        }
+
+        /* Image Protection Styles */
+        .protected-image {
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            background: transparent;
+            cursor: default;
+        }
+
+        /* Disable right-click context menu on images */
+        .wallpaper-card .card-image {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Prevent image dragging and right-click on all wallpaper images */
+        .wallpaper-card img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Apply protection to all wallpaper images automatically */
+        .wallpaper-card .card-image img {
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+            user-select: none !important;
+            pointer-events: none !important;
+        }
+
+        /* Add overlay to all card images */
+        .wallpaper-card .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            background: transparent;
+            cursor: default;
         }
     </style>
 </head>
@@ -934,12 +1008,584 @@
                 </p>
             </div>
 
-            <!-- Dynamic Wallpaper Container -->
+            <!-- Static Wallpaper Gallery -->
             <div class="wallpaper-gallery-container">
-                <!-- Wallpapers will be loaded dynamically by JavaScript -->
-                <div class="text-center py-12">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                    <p class="text-gray-600 dark:text-gray-300">Loading mathematical wallpapers...</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                    <!-- Lorenz Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/lorenz_attractor.png" alt="Lorenz Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Lorenz Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    The famous "butterfly effect" attractor that demonstrates sensitive dependence on initial conditions.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = \sigma(y-x) \\ \frac{dy}{dt} = x(\rho-z)-y \\ \frac{dz}{dt} = xy-\beta z$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/93686d41b9" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barnsley Fern -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/barnsley_fern.png" alt="Barnsley Fern"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    IFS
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Barnsley Fern
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    A nature-inspired fractal created using an Iterated Function System (IFS).
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\begin{pmatrix} x_{n+1} \\ y_{n+1} \end{pmatrix} = A_i \begin{pmatrix} x_n \\ y_n \end{pmatrix} + \begin{pmatrix} b_i \\ c_i \end{pmatrix}$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/8421f916af" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clifford Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/clifford_attractor.png" alt="Clifford Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-cyan-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Clifford Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    A mesmerizing strange attractor with intricate spiral patterns and beautiful symmetries.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x_{n+1} = \sin(ay_n) + c\cos(ax_n) \\ y_{n+1} = \sin(bx_n) + d\cos(by_n)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/658064c5ec" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Random Math Art -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/random_math_art.png" alt="Random Math Art"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Art
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Random Math Art
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Random mathematical art using sine-cosine functions with vibrant colors.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x = \sin(at) + \sin(bt), \quad y = \cos(ct) + \cos(dt)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/e56035b9ea" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- De Jong Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/dejong_attractor.png" alt="De Jong Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    De Jong Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    De Jong attractor with beautiful gradient and complex dynamics.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x_{n+1} = \sin(ay_n) - \cos(bx_n) \\ y_{n+1} = \sin(cx_n) - \cos(dy_n)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/93c8f07017" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spirograph -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/spirograph.png" alt="Spirograph"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Pattern
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Spirograph
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Beautiful spirograph pattern with geometric precision and artistic flair.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x = (R-r)\cos(t) + d\cos\left(\frac{R-r}{r}t\right) \\ y = (R-r)\sin(t) - d\sin\left(\frac{R-r}{r}t\right)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/4c715deb86" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hénon Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/henon_attractor.png" alt="Hénon Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Hénon Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Hénon map attractor showing chaotic dynamics in discrete systems.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x_{n+1} = 1 - ax_n^2 + y_n \\ y_{n+1} = bx_n$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/2d8829b1d3" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ikeda Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/ikeda_attractor.png" alt="Ikeda Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-violet-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Ikeda Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Ikeda map attractor with laser-like patterns and optical dynamics.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$t_n = 0.4 - \frac{6}{1 + x_n^2 + y_n^2} \\ x_{n+1} = 1 + u(x_n\cos t_n - y_n\sin t_n)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/a18d8243ea" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lissajous Curve -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/lissajous_curve.png" alt="Lissajous Curve"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Curve
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Lissajous Curve
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Lissajous curve with turquoise-magenta gradient showing harmonic motion.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$x = A\sin(at + \delta), \quad y = B\sin(bt)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/d1facb8314" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rössler Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/rossler_attractor.png" alt="Rössler Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-rose-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Rössler Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Stunning Rössler attractor with rainbow gradient and chaotic beauty.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = -y - z, \quad \frac{dy}{dt} = x + ay, \quad \frac{dz}{dt} = b + z(x - c)$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/7beb197eb4" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aizawa Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/aizawa_attractor.png" alt="Aizawa Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-sky-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Aizawa Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Mesmerizing Aizawa attractor with cosmic colors and complex dynamics.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = (z-b)x - dy \\ \frac{dy}{dt} = dx + (z-b)y \\ \frac{dz}{dt} = c + az - \frac{z^3}{3}$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/b7b262a0c6" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dadras Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/dadras_attractor.png" alt="Dadras Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-lime-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Dadras Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Electric Dadras attractor with neon lightning effect and dynamic patterns.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = y - ax + byz \\ \frac{dy}{dt} = cy - xz + z \\ \frac{dz}{dt} = dxy - ez$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/bb30ed65cc" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chen Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/chen_attractor.png" alt="Chen Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Chen Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Fiery Chen attractor with phoenix-like colors and chaotic dynamics.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = a(y - x) \\ \frac{dy}{dt} = (c - a)x - xz + cy \\ \frac{dz}{dt} = xy - bz$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/d30753905f" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Four Wing Attractor -->
+                    <div class="wallpaper-card notion-container rounded-xl overflow-hidden">
+                        <div class="card-image relative">
+                            <img src="wallpapers/four_wing_attractor.png" alt="Four Wing Attractor"
+                                 class="w-full h-full object-cover loaded protected-image" loading="lazy"
+                                 onload="this.classList.add('loaded');"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5YTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='; this.classList.add('loaded');"
+                                 oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                            <div class="image-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm">
+                                    Attractor
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    Four Wing Attractor
+                                </h3>
+                            </div>
+                            <div class="card-description">
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                    Magnificent Four Wing attractor with butterfly-like colors and symmetric beauty.
+                                </p>
+                            </div>
+                            <div class="math-equation">
+                                <div class="text-center text-sm">
+                                    $$\frac{dx}{dt} = ax + yz \\ \frac{dy}{dt} = bx + cy - xz \\ \frac{dz}{dt} = -z - xy$$
+                                </div>
+                            </div>
+                            <div class="download-button-container">
+                                <a href="https://ko-fi.com/s/eee6140707" class="download-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Wallpaper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -1091,13 +1737,7 @@
         </div>
     </footer>
 
-    <!-- Mathematical Wallpapers Gallery -->
-
-    <!-- Wallpaper Data -->
-    <script src="js/wallpapers-data.js"></script>
-
-    <!-- Wallpaper Loader -->
-    <script src="js/wallpaper-loader.js"></script>
+    <!-- Mathematical Wallpapers Gallery - Now using static HTML -->
 
 
 
@@ -1214,8 +1854,65 @@
             return false; // Prevent default form submission
         }
 
-        // Render mathematical equations
+        // Image Protection
         document.addEventListener('DOMContentLoaded', function() {
+            // Apply protection to all wallpaper images
+            const wallpaperImages = document.querySelectorAll('.wallpaper-card img');
+            wallpaperImages.forEach(img => {
+                // Add protection attributes
+                img.setAttribute('oncontextmenu', 'return false;');
+                img.setAttribute('ondragstart', 'return false;');
+                img.setAttribute('onselectstart', 'return false;');
+                img.classList.add('protected-image');
+            });
+
+            // Disable right-click on wallpaper cards
+            const wallpaperCards = document.querySelectorAll('.wallpaper-card');
+            wallpaperCards.forEach(card => {
+                card.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+
+                card.addEventListener('dragstart', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+
+                card.addEventListener('selectstart', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            });
+
+            // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S on wallpaper images
+            document.addEventListener('keydown', function(e) {
+                // Disable F12 (Developer Tools)
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Disable Ctrl+Shift+I (Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Disable Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Disable Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Render mathematical equations
             renderMathInElement(document.body, {
                 delimiters: [
                     {left: '$$', right: '$$', display: true},

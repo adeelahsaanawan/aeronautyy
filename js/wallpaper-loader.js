@@ -5,16 +5,30 @@
 
 class WallpaperLoader {
     constructor() {
-        this.wallpapers = wallpapersData;
+        console.log('WallpaperLoader: Constructor called');
+
+        // Check if wallpapersData is available
+        if (typeof wallpapersData === 'undefined') {
+            console.error('WallpaperLoader: wallpapersData is not defined. Make sure wallpapers-data.js is loaded first.');
+            this.wallpapers = [];
+        } else {
+            this.wallpapers = wallpapersData;
+            console.log('WallpaperLoader: Loaded', this.wallpapers.length, 'wallpapers');
+        }
+
         this.container = null;
         this.init();
     }
 
     init() {
+        console.log('WallpaperLoader: Initializing...');
+
         // Wait for DOM to be ready
         if (document.readyState === 'loading') {
+            console.log('WallpaperLoader: DOM still loading, waiting...');
             document.addEventListener('DOMContentLoaded', () => this.loadWallpapers());
         } else {
+            console.log('WallpaperLoader: DOM ready, loading wallpapers...');
             this.loadWallpapers();
         }
     }
