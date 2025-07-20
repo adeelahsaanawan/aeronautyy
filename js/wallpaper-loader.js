@@ -240,7 +240,6 @@ class WallpaperLoader {
 
         // Generate wallpaper cards
         wallpapers.forEach(wallpaper => {
-            console.log('Creating card for:', wallpaper.name, 'kofiUrl:', wallpaper.kofiUrl);
             const card = this.createWallpaperCard(wallpaper);
             grid.appendChild(card);
         });
