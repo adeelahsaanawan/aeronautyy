@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <meta name="description" content="View stunning mathematical wallpapers & fractal art in 4K resolution. Features Mandelbrot sets, Julia sets, Lorenz attractors, chaos theory visualizations & geometric patterns. High-quality mathematical art gallery for desktop & mobile.">
+    <meta name="description" content="Download stunning mathematical wallpapers & fractal art in 4K resolution. Features Mandelbrot sets, Julia sets, Lorenz attractors, chaos theory visualizations & geometric patterns. High-quality mathematical art for desktop & mobile.">
     <meta name="author" content="Adeel Ahsan">
     <meta name="keywords" content="mathematical wallpapers, fractal wallpapers, 4K wallpapers, mathematical art, fractals, attractors, Mandelbrot set, Julia set, Lorenz attractor, chaos theory, complex dynamics, geometric patterns, mathematical visualization, desktop wallpapers, mobile wallpapers, high resolution wallpapers, abstract wallpapers, science wallpapers, math art, fractal art, strange attractors, mathematical beauty, computational art, algorithmic art, mathematical graphics">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -23,7 +23,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aeronautyy.com/mathematical-wallpapers.html">
     <meta property="og:title" content="Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations">
-    <meta property="og:description" content="View stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art gallery for desktop & mobile backgrounds.">
+    <meta property="og:description" content="Download stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art for desktop & mobile backgrounds.">
     <meta property="og:image" content="https://aeronautyy.com/wallpapers/mandelbrot_set.png">
     <meta property="og:image:width" content="1920">
     <meta property="og:image:height" content="1080">
@@ -43,14 +43,14 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://aeronautyy.com/mathematical-wallpapers.html">
     <meta property="twitter:title" content="Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations">
-    <meta property="twitter:description" content="View stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art gallery for desktop & mobile backgrounds.">
+    <meta property="twitter:description" content="Download stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art for desktop & mobile backgrounds.">
     <meta property="twitter:image" content="https://aeronautyy.com/wallpapers/mandelbrot_set.png">
     <meta property="twitter:image:alt" content="Beautiful Mandelbrot Set Fractal Wallpaper">
     <meta property="twitter:creator" content="@aeronautyy">
     <meta property="twitter:site" content="@aeronautyy">
     <meta property="twitter:domain" content="aeronautyy.com">
     
-    <title>Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations Gallery</title>
+    <title>Mathematical Wallpapers - Download 4K Fractal Art & Mathematical Visualizations</title>
 
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -147,10 +147,10 @@
             },
             {
                 "@type": "Question",
-                "name": "Can I download the mathematical wallpapers?",
+                "name": "How can I download the mathematical wallpapers?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Download functionality is coming soon! Currently, you can view and explore the beautiful mathematical wallpapers in our gallery. Each wallpaper features unique mathematical visualizations including fractals, attractors, and chaos theory patterns."
+                    "text": "You can download any wallpaper by clicking the 'Download Wallpaper' button on each wallpaper card. This will take you to our secure Ko-fi store where you can purchase and instantly download high-resolution versions of these beautiful mathematical visualizations."
                 }
             },
             {
@@ -413,29 +413,39 @@
             }
         }
 
-        /* Coming Soon button styling */
-        .coming-soon-button {
+        /* Download button styling */
+        .download-button {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 16px 32px;
-            background: linear-gradient(135deg, #6b7280, #4b5563);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
             border: none;
             border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
-            cursor: not-allowed;
-            opacity: 0.7;
+            text-decoration: none;
+            cursor: pointer;
             transition: all 0.3s ease;
             max-width: 280px;
             margin: 0 auto;
             min-height: 56px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
 
-        .coming-soon-button:hover {
-            opacity: 0.8;
+        .download-button:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+
+        .download-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
         }
 
         /* Enhanced responsive equation sizing */
@@ -576,7 +586,7 @@
         }
 
         /* Professional button area styling */
-        .wallpaper-card .coming-soon-container {
+        .wallpaper-card .download-button-container {
             margin-top: auto;
             padding: 1.5rem 0 0.5rem 0;
             display: flex;
@@ -588,7 +598,7 @@
         }
 
         /* Add subtle separator above button */
-        .wallpaper-card .coming-soon-container::before {
+        .wallpaper-card .download-button-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -598,7 +608,7 @@
             background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
         }
 
-        .dark .wallpaper-card .coming-soon-container::before {
+        .dark .wallpaper-card .download-button-container::before {
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         }
         
@@ -712,7 +722,7 @@
                 padding: 1.25rem 1rem;
             }
 
-            .wallpaper-card .coming-soon-container::before {
+            .wallpaper-card .download-button-container::before {
                 left: 1rem;
                 right: 1rem;
             }
@@ -745,7 +755,7 @@
                 padding: 1rem 0.75rem;
             }
 
-            .wallpaper-card .coming-soon-container::before {
+            .wallpaper-card .download-button-container::before {
                 left: 0.75rem;
                 right: 0.75rem;
             }
@@ -938,51 +948,38 @@
     </section>
 
 
-    <!-- Coming Soon Section -->
+    <!-- How to Download Section -->
     <section id="download" class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                Download Option Coming Soon
+                How to Download
             </h2>
             <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-                We're working on implementing a secure download system for these beautiful mathematical wallpapers.
-                For now, you can explore and enjoy viewing the gallery. Download functionality will be available soon!
+                Click any download button to get your high-resolution mathematical wallpaper through our secure Ko-fi store.
             </p>
 
-            <!-- Coming Soon Features -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Simple Download Steps -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-2xl mx-auto">
                 <div class="notion-container rounded-xl p-6">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">1</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Browse Gallery</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Choose & Click</h3>
                         <p class="text-gray-600 dark:text-gray-300">
-                            Explore our collection of stunning mathematical wallpapers and fractal art in high resolution.
+                            Browse the gallery and click "Download Wallpaper" on your favorite mathematical art.
                         </p>
                     </div>
                 </div>
 
                 <div class="notion-container rounded-xl p-6">
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-orange-600 dark:text-orange-400">2</span>
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-green-600 dark:text-green-400">2</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Download System</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Secure Purchase</h3>
                         <p class="text-gray-600 dark:text-gray-300">
-                            We're developing a secure download system that will be available soon.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="notion-container rounded-xl p-6">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-purple-600 dark:text-purple-400">3</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">High Quality</h3>
-                        <p class="text-gray-600 dark:text-gray-300">
-                            All wallpapers will be available in 4K resolution perfect for any device.
+                            Complete your purchase through Ko-fi's secure payment system and download instantly.
                         </p>
                     </div>
                 </div>
@@ -999,7 +996,7 @@
                     Have a Problem?
                 </h2>
                 <p class="text-lg text-gray-600 dark:text-gray-300">
-                    Questions about the wallpapers, interested in download updates, or custom mathematical art requests?
+                    Questions about the wallpapers, download issues, or custom mathematical art requests?
                     I'm here to help!
                 </p>
             </div>
@@ -1040,7 +1037,7 @@
                         </label>
                         <select id="subject" name="inquiry_type"
                                 class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
-                            <option value="download-updates">Download Updates</option>
+                            <option value="download-issue">Download Issue</option>
                             <option value="custom">Custom Wallpaper Request</option>
                             <option value="technical">Technical Question</option>
                             <option value="feedback">Feedback</option>

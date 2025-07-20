@@ -11,7 +11,8 @@ const wallpapersData = [
         description: 'The famous "butterfly effect" attractor that demonstrates sensitive dependence on initial conditions.',
         equation: '\\frac{dx}{dt} = \\sigma(y-x) \\\\ \\frac{dy}{dt} = x(\\rho-z)-y \\\\ \\frac{dz}{dt} = xy-\\beta z',
         category: 'Attractor',
-        color: 'red'
+        color: 'red',
+        kofiUrl: 'https://ko-fi.com/s/93686d41b9'
     },
     {
         name: 'Barnsley Fern',
@@ -19,7 +20,8 @@ const wallpapersData = [
         description: 'A nature-inspired fractal created using an Iterated Function System (IFS).',
         equation: '\\begin{pmatrix} x_{n+1} \\\\ y_{n+1} \\end{pmatrix} = A_i \\begin{pmatrix} x_n \\\\ y_n \\end{pmatrix} + \\begin{pmatrix} b_i \\\\ c_i \\end{pmatrix}',
         category: 'IFS',
-        color: 'green'
+        color: 'green',
+        kofiUrl: 'https://ko-fi.com/s/8421f916af'
     },
     {
         name: 'Clifford Attractor',
@@ -27,7 +29,8 @@ const wallpapersData = [
         description: 'A mesmerizing strange attractor with intricate spiral patterns and beautiful symmetries.',
         equation: 'x_{n+1} = \\sin(ay_n) + c\\cos(ax_n) \\\\ y_{n+1} = \\sin(bx_n) + d\\cos(by_n)',
         category: 'Attractor',
-        color: 'cyan'
+        color: 'cyan',
+        kofiUrl: 'https://ko-fi.com/s/658064c5ec'
     },
 
     // Additional wallpapers
@@ -38,7 +41,7 @@ const wallpapersData = [
         equation: 'x = \\sin(at) + \\sin(bt), \\quad y = \\cos(ct) + \\cos(dt)',
         category: 'Art',
         color: 'indigo',
-
+        kofiUrl: 'https://ko-fi.com/s/e56035b9ea'
     },
     {
         name: 'De Jong Attractor',
@@ -47,6 +50,7 @@ const wallpapersData = [
         equation: 'x_{n+1} = \\sin(ay_n) - \\cos(bx_n) \\\\ y_{n+1} = \\sin(cx_n) - \\cos(dy_n)',
         category: 'Attractor',
         color: 'pink',
+        kofiUrl: 'https://ko-fi.com/s/93c8f07017'
     },
     {
         name: 'Spirograph',
@@ -55,6 +59,7 @@ const wallpapersData = [
         equation: 'x = (R-r)\\cos(t) + d\\cos\\left(\\frac{R-r}{r}t\\right) \\\\ y = (R-r)\\sin(t) - d\\sin\\left(\\frac{R-r}{r}t\\right)',
         category: 'Pattern',
         color: 'yellow',
+        kofiUrl: 'https://ko-fi.com/s/4c715deb86'
     },
     {
         name: 'Hénon Attractor',
@@ -63,6 +68,7 @@ const wallpapersData = [
         equation: '\\begin{align} x_{n+1} &= 1 - ax_n^2 + y_n \\\\ y_{n+1} &= bx_n \\end{align}',
         category: 'Attractor',
         color: 'teal',
+        kofiUrl: 'https://ko-fi.com/s/2d8829b1d3'
     },
     {
         name: 'Ikeda Attractor',
@@ -71,6 +77,7 @@ const wallpapersData = [
         equation: 't_n = 0.4 - \\frac{6}{1 + x_n^2 + y_n^2} \\\\ x_{n+1} = 1 + u(x_n\\cos t_n - y_n\\sin t_n)',
         category: 'Attractor',
         color: 'violet',
+        kofiUrl: 'https://ko-fi.com/s/a18d8243ea'
     },
     {
         name: 'Lissajous Curve',
@@ -79,6 +86,7 @@ const wallpapersData = [
         equation: 'x = A\\sin(at + \\delta), \\quad y = B\\sin(bt)',
         category: 'Curve',
         color: 'emerald',
+        kofiUrl: 'https://ko-fi.com/s/d1facb8314'
     },
     {
         name: 'Rössler Attractor',
@@ -87,6 +95,7 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = -y - z, \\quad \\frac{dy}{dt} = x + ay, \\quad \\frac{dz}{dt} = b + z(x - c)',
         category: 'Attractor',
         color: 'rose',
+        kofiUrl: 'https://ko-fi.com/s/7beb197eb4'
     },
     {
         name: 'Aizawa Attractor',
@@ -95,6 +104,7 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = (z-b)x - dy \\\\ \\frac{dy}{dt} = dx + (z-b)y \\\\ \\frac{dz}{dt} = c + az - \\frac{z^3}{3}',
         category: 'Attractor',
         color: 'sky',
+        kofiUrl: 'https://ko-fi.com/s/b7b262a0c6'
     },
     {
         name: 'Dadras Attractor',
@@ -103,6 +113,7 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = y - ax + byz \\\\ \\frac{dy}{dt} = cy - xz + z \\\\ \\frac{dz}{dt} = dxy - ez',
         category: 'Attractor',
         color: 'lime',
+        kofiUrl: 'https://ko-fi.com/s/bb30ed65cc'
     },
     {
         name: 'Chen Attractor',
@@ -111,6 +122,7 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = a(y - x) \\\\ \\frac{dy}{dt} = (c - a)x - xz + cy \\\\ \\frac{dz}{dt} = xy - bz',
         category: 'Attractor',
         color: 'amber',
+        kofiUrl: 'https://ko-fi.com/s/d30753905f'
     },
 
 
@@ -122,6 +134,7 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = ax + yz \\\\ \\frac{dy}{dt} = bx + cy - xz \\\\ \\frac{dz}{dt} = -z - xy',
         category: 'Attractor',
         color: 'indigo',
+        kofiUrl: 'https://ko-fi.com/s/eee6140707'
     }
 ];
 
