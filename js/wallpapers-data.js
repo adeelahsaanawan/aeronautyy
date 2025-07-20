@@ -11,9 +11,7 @@ const wallpapersData = [
         description: 'The famous "butterfly effect" attractor that demonstrates sensitive dependence on initial conditions.',
         equation: '\\frac{dx}{dt} = \\sigma(y-x) \\\\ \\frac{dy}{dt} = x(\\rho-z)-y \\\\ \\frac{dz}{dt} = xy-\\beta z',
         category: 'Attractor',
-        color: 'red',
-        buyButtonUrl: 'https://buy.stripe.com/00w28r5MgcPw23e7pp7wA03',
-        price: '$1.50 CAD'
+        color: 'red'
     },
     {
         name: 'Barnsley Fern',
@@ -21,9 +19,7 @@ const wallpapersData = [
         description: 'A nature-inspired fractal created using an Iterated Function System (IFS).',
         equation: '\\begin{pmatrix} x_{n+1} \\\\ y_{n+1} \\end{pmatrix} = A_i \\begin{pmatrix} x_n \\\\ y_n \\end{pmatrix} + \\begin{pmatrix} b_i \\\\ c_i \\end{pmatrix}',
         category: 'IFS',
-        color: 'green',
-        buyButtonUrl: 'https://buy.stripe.com/dRm6oHcaEeXE4bmbFF7wA04',
-        price: '$2.00 CAD'
+        color: 'green'
     },
     {
         name: 'Clifford Attractor',
@@ -31,9 +27,7 @@ const wallpapersData = [
         description: 'A mesmerizing strange attractor with intricate spiral patterns and beautiful symmetries.',
         equation: 'x_{n+1} = \\sin(ay_n) + c\\cos(ax_n) \\\\ y_{n+1} = \\sin(bx_n) + d\\cos(by_n)',
         category: 'Attractor',
-        color: 'cyan',
-        buyButtonUrl: 'https://buy.stripe.com/cNi5kDb6A8zg4bm5hh7wA05',
-        price: '$1.50 CAD'
+        color: 'cyan'
     },
 
     // Additional wallpapers
@@ -44,8 +38,7 @@ const wallpapersData = [
         equation: 'x = \\sin(at) + \\sin(bt), \\quad y = \\cos(ct) + \\cos(dt)',
         category: 'Art',
         color: 'indigo',
-        buyButtonUrl: 'https://buy.stripe.com/3cI28rb6A8zg7ny6ll7wA06',
-        price: '$1.00 CAD'
+
     },
     {
         name: 'De Jong Attractor',
@@ -54,8 +47,6 @@ const wallpapersData = [
         equation: 'x_{n+1} = \\sin(ay_n) - \\cos(bx_n) \\\\ y_{n+1} = \\sin(cx_n) - \\cos(dy_n)',
         category: 'Attractor',
         color: 'pink',
-        buyButtonUrl: 'https://buy.stripe.com/4gMdR91w02aS5fqdNN7wA07',
-        price: '$1.50 CAD'
     },
     {
         name: 'Spirograph',
@@ -64,8 +55,6 @@ const wallpapersData = [
         equation: 'x = (R-r)\\cos(t) + d\\cos\\left(\\frac{R-r}{r}t\\right) \\\\ y = (R-r)\\sin(t) - d\\sin\\left(\\frac{R-r}{r}t\\right)',
         category: 'Pattern',
         color: 'yellow',
-        buyButtonUrl: 'https://buy.stripe.com/dRm4gzcaEaHobDOeRR7wA08',
-        price: '$1.50 CAD'
     },
     {
         name: 'Hénon Attractor',
@@ -74,8 +63,6 @@ const wallpapersData = [
         equation: '\\begin{align} x_{n+1} &= 1 - ax_n^2 + y_n \\\\ y_{n+1} &= bx_n \\end{align}',
         category: 'Attractor',
         color: 'teal',
-        buyButtonUrl: 'https://buy.stripe.com/28EcN57Uo5n40Za6ll7wA09',
-        price: '$1.50 CAD'
     },
     {
         name: 'Ikeda Attractor',
@@ -84,8 +71,6 @@ const wallpapersData = [
         equation: 't_n = 0.4 - \\frac{6}{1 + x_n^2 + y_n^2} \\\\ x_{n+1} = 1 + u(x_n\\cos t_n - y_n\\sin t_n)',
         category: 'Attractor',
         color: 'violet',
-        buyButtonUrl: 'https://buy.stripe.com/fZu9AT4IceXE37i8tt7wA0a',
-        price: '$1.50 CAD'
     },
     {
         name: 'Lissajous Curve',
@@ -94,8 +79,6 @@ const wallpapersData = [
         equation: 'x = A\\sin(at + \\delta), \\quad y = B\\sin(bt)',
         category: 'Curve',
         color: 'emerald',
-        buyButtonUrl: 'https://buy.stripe.com/dRm5kD4IcbLs9vG2557wA0b',
-        price: '$1.20 CAD'
     },
     {
         name: 'Rössler Attractor',
@@ -104,8 +87,6 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = -y - z, \\quad \\frac{dy}{dt} = x + ay, \\quad \\frac{dz}{dt} = b + z(x - c)',
         category: 'Attractor',
         color: 'rose',
-        buyButtonUrl: 'https://buy.stripe.com/8x2dR9fmQbLsfU41117wA0c',
-        price: '$1.20 CAD'
     },
     {
         name: 'Aizawa Attractor',
@@ -114,8 +95,6 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = (z-b)x - dy \\\\ \\frac{dy}{dt} = dx + (z-b)y \\\\ \\frac{dz}{dt} = c + az - \\frac{z^3}{3}',
         category: 'Attractor',
         color: 'sky',
-        buyButtonUrl: 'https://buy.stripe.com/cNi6oHcaEbLs37ibFF7wA0d',
-        price: '$1.50 CAD'
     },
     {
         name: 'Dadras Attractor',
@@ -124,8 +103,6 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = y - ax + byz \\\\ \\frac{dy}{dt} = cy - xz + z \\\\ \\frac{dz}{dt} = dxy - ez',
         category: 'Attractor',
         color: 'lime',
-        buyButtonUrl: 'https://buy.stripe.com/5kQ3cv8Ys5n423eaBB7wA0e',
-        price: '$1.50 CAD'
     },
     {
         name: 'Chen Attractor',
@@ -134,8 +111,6 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = a(y - x) \\\\ \\frac{dy}{dt} = (c - a)x - xz + cy \\\\ \\frac{dz}{dt} = xy - bz',
         category: 'Attractor',
         color: 'amber',
-        buyButtonUrl: 'https://buy.stripe.com/dRmfZh5Mg9DkbDOdNN7wA0f',
-        price: '$2.00 CAD'
     },
 
 
@@ -147,8 +122,6 @@ const wallpapersData = [
         equation: '\\frac{dx}{dt} = ax + yz \\\\ \\frac{dy}{dt} = bx + cy - xz \\\\ \\frac{dz}{dt} = -z - xy',
         category: 'Attractor',
         color: 'indigo',
-        buyButtonUrl: 'https://buy.stripe.com/28EeVdb6A6r823eeRR7wA0g',
-        price: '$1.20 CAD'
     }
 ];
 

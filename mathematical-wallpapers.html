@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <meta name="description" content="Download stunning mathematical wallpapers & fractal art in 4K resolution. Features Mandelbrot sets, Julia sets, Lorenz attractors, chaos theory visualizations & geometric patterns. Free high-quality mathematical art for desktop & mobile.">
+    <meta name="description" content="View stunning mathematical wallpapers & fractal art in 4K resolution. Features Mandelbrot sets, Julia sets, Lorenz attractors, chaos theory visualizations & geometric patterns. High-quality mathematical art gallery for desktop & mobile.">
     <meta name="author" content="Adeel Ahsan">
     <meta name="keywords" content="mathematical wallpapers, fractal wallpapers, 4K wallpapers, mathematical art, fractals, attractors, Mandelbrot set, Julia set, Lorenz attractor, chaos theory, complex dynamics, geometric patterns, mathematical visualization, desktop wallpapers, mobile wallpapers, high resolution wallpapers, abstract wallpapers, science wallpapers, math art, fractal art, strange attractors, mathematical beauty, computational art, algorithmic art, mathematical graphics">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -23,7 +23,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aeronautyy.com/mathematical-wallpapers.html">
     <meta property="og:title" content="Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations">
-    <meta property="og:description" content="Download stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. Free high-resolution mathematical art for desktop & mobile backgrounds.">
+    <meta property="og:description" content="View stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art gallery for desktop & mobile backgrounds.">
     <meta property="og:image" content="https://aeronautyy.com/wallpapers/mandelbrot_set.png">
     <meta property="og:image:width" content="1920">
     <meta property="og:image:height" content="1080">
@@ -43,14 +43,14 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://aeronautyy.com/mathematical-wallpapers.html">
     <meta property="twitter:title" content="Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations">
-    <meta property="twitter:description" content="Download stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. Free high-resolution mathematical art for desktop & mobile backgrounds.">
+    <meta property="twitter:description" content="View stunning 4K mathematical wallpapers featuring fractals, attractors & chaos theory visualizations. High-resolution mathematical art gallery for desktop & mobile backgrounds.">
     <meta property="twitter:image" content="https://aeronautyy.com/wallpapers/mandelbrot_set.png">
     <meta property="twitter:image:alt" content="Beautiful Mandelbrot Set Fractal Wallpaper">
     <meta property="twitter:creator" content="@aeronautyy">
     <meta property="twitter:site" content="@aeronautyy">
     <meta property="twitter:domain" content="aeronautyy.com">
     
-    <title>Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations | Free Download</title>
+    <title>Mathematical Wallpapers - 4K Fractal Art & Mathematical Visualizations Gallery</title>
 
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -147,10 +147,10 @@
             },
             {
                 "@type": "Question",
-                "name": "Are the mathematical wallpapers free to download?",
+                "name": "Can I download the mathematical wallpapers?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Individual wallpapers are available for purchase. Each wallpaper features unique mathematical visualizations including fractals, attractors, and chaos theory patterns."
+                    "text": "Download functionality is coming soon! Currently, you can view and explore the beautiful mathematical wallpapers in our gallery. Each wallpaper features unique mathematical visualizations including fractals, attractors, and chaos theory patterns."
                 }
             },
             {
@@ -413,37 +413,29 @@
             }
         }
 
-        /* Stripe buy button styling */
-        .stripe-buy-button-container {
+        /* Coming Soon button styling */
+        .coming-soon-button {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            max-width: 280px;
+            margin: 0 auto;
+            min-height: 56px;
         }
 
-        .stripe-buy-button-container stripe-buy-button {
-            width: 100% !important;
-            max-width: 280px !important;
-        }
-
-        /* Ensure Stripe button fills container */
-        stripe-buy-button {
-            display: block !important;
-            width: 100% !important;
-            max-width: 280px !important;
-        }
-
-        /* Style the actual button inside Stripe component */
-        stripe-buy-button::part(button) {
-            width: 100% !important;
-            padding: 16px 32px !important;
-            font-size: 18px !important;
-            font-weight: 700 !important;
-            border-radius: 12px !important;
-            min-height: 56px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+        .coming-soon-button:hover {
+            opacity: 0.8;
         }
 
         /* Enhanced responsive equation sizing */
@@ -493,27 +485,7 @@
             }
         }
         
-        /* Download button styling */
-        .download-btn {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
-            transform: translateY(-2px);
-        }
-        
-        /* Payment button styling */
-        .payment-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            transition: all 0.3s ease;
-        }
-        
-        .payment-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateY(-2px);
-        }
+
         
         /* Notion-style containers */
         .notion-container {
@@ -604,9 +576,9 @@
         }
 
         /* Professional button area styling */
-        .wallpaper-card .stripe-buy-button-container {
+        .wallpaper-card .coming-soon-container {
             margin-top: auto;
-            padding: 1.5rem 0 0.5rem 0; /* More refined padding */
+            padding: 1.5rem 0 0.5rem 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -616,7 +588,7 @@
         }
 
         /* Add subtle separator above button */
-        .wallpaper-card .stripe-buy-button-container::before {
+        .wallpaper-card .coming-soon-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -626,7 +598,7 @@
             background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
         }
 
-        .dark .wallpaper-card .stripe-buy-button-container::before {
+        .dark .wallpaper-card .coming-soon-container::before {
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         }
         
@@ -683,101 +655,11 @@
             opacity: 1;
         }
         
-        /* Stripe buy button styling */
-        .stripe-buy-button-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            position: relative;
-        }
 
-        /* Loading state for buttons */
-        .stripe-buy-button-container.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #3b82f6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 10;
-        }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
 
-        /* Enhanced Stripe button styling */
-        stripe-buy-button {
-            --stripe-button-background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            --stripe-button-text-color: white;
-            --stripe-button-border-radius: 14px;
-            --stripe-button-font-size: 16px;
-            --stripe-button-font-weight: 600;
-            --stripe-button-padding: 16px 32px;
-            --stripe-button-hover-background: linear-gradient(135deg, #1d4ed8, #1e40af);
-            width: 100% !important;
-            max-width: 240px !important;
-            min-height: 56px !important;
-            display: block !important;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none !important;
-            outline: none !important;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-        }
 
-        stripe-buy-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25);
-        }
 
-        stripe-buy-button:active {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.2);
-        }
-
-        /* Consistent button sizing with elegant proportions */
-        .stripe-buy-button-container stripe-buy-button {
-            width: 100% !important;
-            max-width: 240px !important;
-        }
-
-        /* Override Stripe's default styles */
-        stripe-buy-button::part(button) {
-            width: 100% !important;
-            height: 52px !important;
-            padding: 14px 28px !important;
-            font-size: 16px !important;
-            font-weight: 600 !important;
-            border-radius: 12px !important;
-            border: none !important;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
-            color: white !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            text-align: center !important;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
-        }
-
-        stripe-buy-button::part(button):hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3) !important;
-        }
-
-        stripe-buy-button::part(button):active {
-            transform: translateY(0) !important;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2) !important;
-        }
 
         /* Text clamping utilities */
         .line-clamp-2 {
@@ -830,7 +712,7 @@
                 padding: 1.25rem 1rem;
             }
 
-            .wallpaper-card .stripe-buy-button-container::before {
+            .wallpaper-card .coming-soon-container::before {
                 left: 1rem;
                 right: 1rem;
             }
@@ -855,11 +737,7 @@
                 font-size: 1.25rem;
             }
 
-            stripe-buy-button {
-                max-width: 220px !important;
-                min-height: 48px !important;
-                --stripe-button-padding: 14px 24px;
-            }
+
 
             .wallpaper-card .math-equation {
                 min-height: 80px;
@@ -867,7 +745,7 @@
                 padding: 1rem 0.75rem;
             }
 
-            .wallpaper-card .stripe-buy-button-container::before {
+            .wallpaper-card .coming-soon-container::before {
                 left: 0.75rem;
                 right: 0.75rem;
             }
@@ -1060,39 +938,39 @@
     </section>
 
 
-    <!-- How It Works Section -->
+    <!-- Coming Soon Section -->
     <section id="download" class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                How to Download Wallpapers
+                Download Option Coming Soon
             </h2>
             <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-                Each wallpaper requires a secure payment to download. Simply click the download button on any wallpaper
-                you like, complete the payment process, and get instant access to your high-resolution mathematical art.
+                We're working on implementing a secure download system for these beautiful mathematical wallpapers.
+                For now, you can explore and enjoy viewing the gallery. Download functionality will be available soon!
             </p>
 
-            <!-- Process Steps -->
+            <!-- Coming Soon Features -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <div class="notion-container rounded-xl p-6">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">1</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Choose Wallpaper</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Browse Gallery</h3>
                         <p class="text-gray-600 dark:text-gray-300">
-                            Browse the gallery and click the download button on any wallpaper that catches your eye.
+                            Explore our collection of stunning mathematical wallpapers and fractal art in high resolution.
                         </p>
                     </div>
                 </div>
 
                 <div class="notion-container rounded-xl p-6">
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-green-600 dark:text-green-400">2</span>
+                        <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-orange-600 dark:text-orange-400">2</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Secure Payment</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Download System</h3>
                         <p class="text-gray-600 dark:text-gray-300">
-                            Complete the quick and secure payment process powered by Stripe.
+                            We're developing a secure download system that will be available soon.
                         </p>
                     </div>
                 </div>
@@ -1102,9 +980,9 @@
                         <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl font-bold text-purple-600 dark:text-purple-400">3</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Instant Download</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">High Quality</h3>
                         <p class="text-gray-600 dark:text-gray-300">
-                            Get immediate access to your high-resolution wallpaper after successful payment.
+                            All wallpapers will be available in 4K resolution perfect for any device.
                         </p>
                     </div>
                 </div>
@@ -1121,7 +999,7 @@
                     Have a Problem?
                 </h2>
                 <p class="text-lg text-gray-600 dark:text-gray-300">
-                    Questions about the wallpapers, payment issues, or custom mathematical art requests?
+                    Questions about the wallpapers, interested in download updates, or custom mathematical art requests?
                     I'm here to help!
                 </p>
             </div>
@@ -1162,10 +1040,10 @@
                         </label>
                         <select id="subject" name="inquiry_type"
                                 class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
-                            <option value="payment">Payment Issue</option>
-                            <option value="download">Download Problem</option>
+                            <option value="download-updates">Download Updates</option>
                             <option value="custom">Custom Wallpaper Request</option>
                             <option value="technical">Technical Question</option>
+                            <option value="feedback">Feedback</option>
                             <option value="general">General Inquiry</option>
                         </select>
                     </div>
@@ -1216,7 +1094,7 @@
         </div>
     </footer>
 
-    <!-- Note: Using direct Stripe links now, no need for buy button script -->
+    <!-- Mathematical Wallpapers Gallery -->
 
     <!-- Wallpaper Data -->
     <script src="js/wallpapers-data.js"></script>
@@ -1224,8 +1102,7 @@
     <!-- Wallpaper Loader -->
     <script src="js/wallpaper-loader.js"></script>
 
-    <!-- Payment Handler -->
-    <script src="js/payment-handler.js"></script>
+
 
 
 
@@ -1260,7 +1137,7 @@
             }
         });
 
-        // Download functionality is now handled by payment-handler.js
+        // Gallery functionality
 
         // Show notification
         function showNotification(message, type = 'info') {

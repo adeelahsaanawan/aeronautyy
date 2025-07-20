@@ -110,16 +110,14 @@ class WallpaperLoader {
                     </div>
                 </div>
 
-                <div class="stripe-buy-button-container" data-wallpaper="${wallpaper.name}">
-                    <a href="${wallpaper.buyButtonUrl}"
-                       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
-                       data-wallpaper-filename="${wallpaper.filename}"
-                       data-wallpaper-name="${wallpaper.name}"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        <i class="fas fa-download mr-2"></i>
-                        Buy & Download - ${wallpaper.price}
-                    </a>
+                <div class="coming-soon-container" data-wallpaper="${wallpaper.name}">
+                    <button class="coming-soon-button"
+                            disabled
+                            data-wallpaper-filename="${wallpaper.filename}"
+                            data-wallpaper-name="${wallpaper.name}">
+                        <i class="fas fa-clock mr-2"></i>
+                        Download Coming Soon
+                    </button>
                 </div>
             </div>
         `;
@@ -133,28 +131,18 @@ class WallpaperLoader {
         cards.forEach(card => {
             // Add ripple effect on click
             card.addEventListener('click', (e) => {
-                // Don't trigger if clicking on Stripe button
-                if (e.target.closest('stripe-buy-button')) return;
+                // Don't trigger if clicking on coming soon button
+                if (e.target.closest('.coming-soon-button')) return;
 
                 this.createRippleEffect(e, card);
             });
 
-            // Add loading state to buy buttons
-            const buyButton = card.querySelector('a[data-wallpaper-filename]');
-            if (buyButton) {
-                buyButton.addEventListener('click', () => {
-                    const container = buyButton.closest('.stripe-buy-button-container');
-                    container.classList.add('loading');
-
-                    // Add loading text
-                    const originalText = buyButton.innerHTML;
-                    buyButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirecting to payment...';
-
-                    // Restore original text after redirect (fallback)
-                    setTimeout(() => {
-                        buyButton.innerHTML = originalText;
-                        container.classList.remove('loading');
-                    }, 3000);
+            // Add hover effect to coming soon buttons
+            const comingSoonButton = card.querySelector('.coming-soon-button');
+            if (comingSoonButton) {
+                comingSoonButton.addEventListener('click', () => {
+                    // Show a notification that downloads are coming soon
+                    this.showComingSoonNotification();
                 });
             }
 
@@ -278,6 +266,38 @@ class WallpaperLoader {
             total: this.wallpapers.length,
             categories: categories
         };
+    }
+
+    showComingSoonNotification() {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-20 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full bg-blue-500 text-white';
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span>Download functionality coming soon! Stay tuned for updates.</span>
+                <button class="ml-4 text-white hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        }, 5000);
     }
 }
 
