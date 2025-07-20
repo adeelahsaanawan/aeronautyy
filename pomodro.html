@@ -537,7 +537,7 @@
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">Today's Focus Stats</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="stat-item text-center p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
-                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="focus-time-display">0h 0m</div>
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="focus-time-display">0m</div>
                     <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Focus Time</div>
                     <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
                         <i class="fas fa-brain mr-1"></i>Deep Work
@@ -867,6 +867,9 @@
 
             // Initialize session progress display
             updateSessionProgress();
+
+            // Ensure no lingering session tracking from page refresh
+            sessionStartTime = null;
 
             // Load a random quote
             loadRandomQuote();
@@ -1292,23 +1295,33 @@
                 const stats = JSON.parse(savedStats);
                 if (stats.date === today) {
                     dailyStats = stats;
-                    totalFocusTime = stats.focusTime;
-                    totalBreakTime = stats.breakTime;
-                    totalSessions = stats.sessions;
+                    totalFocusTime = stats.focusTime || 0;
+                    totalBreakTime = stats.breakTime || 0;
+                    totalSessions = stats.sessions || 0;
                 } else {
                     // New day, reset stats
-                    dailyStats = {
-                        date: today,
-                        focusTime: 0,
-                        breakTime: 0,
-                        sessions: 0
-                    };
-                    totalFocusTime = 0;
-                    totalBreakTime = 0;
-                    totalSessions = 0;
+                    resetDailyStats(today);
                 }
+            } else {
+                // No saved stats, initialize fresh
+                resetDailyStats(today);
             }
-            updateStatsDisplay();
+            forceUpdateStatsDisplay();
+        }
+
+        function resetDailyStats(date) {
+            dailyStats = {
+                date: date,
+                focusTime: 0,
+                breakTime: 0,
+                sessions: 0
+            };
+            totalFocusTime = 0;
+            totalBreakTime = 0;
+            totalSessions = 0;
+
+            // Save the reset stats to localStorage
+            saveDailyStats();
         }
 
         function saveDailyStats() {
@@ -1334,7 +1347,7 @@
 
                 sessionStartTime = Date.now(); // Reset start time for continuous tracking
                 saveDailyStats();
-                updateStatsDisplay();
+                forceUpdateStatsDisplay();
             }
         }
 
@@ -1351,7 +1364,7 @@
 
                 sessionStartTime = null;
                 saveDailyStats();
-                updateStatsDisplay();
+                forceUpdateStatsDisplay();
             }
         }
 
@@ -1402,6 +1415,18 @@
                 const productivityPercentage = totalTime > 0 ? Math.round((totalFocusTime / totalTime) * 100) : 0;
                 productivityScore.textContent = `${productivityPercentage}%`;
             }
+        }
+
+        function forceUpdateStatsDisplay() {
+            // Force update stats display regardless of timer state (for initialization)
+            focusTimeDisplay.textContent = formatTime(totalFocusTime);
+            breakTimeDisplay.textContent = formatTime(totalBreakTime);
+            totalSessionsDisplay.textContent = totalSessions;
+
+            // Calculate productivity score
+            const totalTime = totalFocusTime + totalBreakTime;
+            const productivityPercentage = totalTime > 0 ? Math.round((totalFocusTime / totalTime) * 100) : 0;
+            productivityScore.textContent = `${productivityPercentage}%`;
         }
 
         // Quote management functions
