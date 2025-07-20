@@ -117,7 +117,7 @@ class WallpaperLoader {
                        data-wallpaper-name="${wallpaper.name}"
                        onclick="window.paymentHandler.trackWallpaperSelection('${wallpaper.filename}', '${wallpaper.name}')">
                         <i class="fas fa-download mr-2"></i>
-                        Buy & Download - $2.99
+                        Buy & Download - ${wallpaper.price}
                     </a>
                 </div>
             </div>
