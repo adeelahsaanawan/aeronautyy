@@ -1,0 +1,30 @@
+# Protect wallpapers from direct access
+# Only allow access from the main domain with proper referrer
+
+# Deny all direct access by default
+Order Deny,Allow
+Deny from all
+
+# Allow access only from your domain
+Allow from aeronautyy.com
+Allow from www.aeronautyy.com
+
+# Check referrer to prevent hotlinking
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^https?://aeronautyy\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://www\.aeronautyy\.com [NC]
+RewriteCond %{HTTP_REFERER} !^$
+RewriteRule \.(png|jpg|jpeg|gif)$ - [F,L]
+
+# Additional security headers
+<FilesMatch "\.(png|jpg|jpeg|gif)$">
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options DENY
+    Header set Referrer-Policy strict-origin-when-cross-origin
+</FilesMatch>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Custom error page for forbidden access
+ErrorDocument 403 "Access denied. Please purchase wallpapers through aeronautyy.com"

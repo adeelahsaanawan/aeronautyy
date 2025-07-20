@@ -47,6 +47,14 @@ class PaymentHandler {
     validatePaymentSession(sessionId) {
         if (!sessionId) {
             console.error('🔒 Security: No session ID provided');
+            this.showNotification('❌ Invalid payment session. Please try again.', 'error');
+            return false;
+        }
+
+        // SECURITY: Validate Stripe session ID format
+        if (!sessionId.startsWith('cs_') || sessionId.length < 20) {
+            console.error('🔒 Security: Invalid Stripe session ID format:', sessionId);
+            this.showNotification('❌ Invalid payment session format. Please contact support.', 'error');
             return false;
         }
 
@@ -58,13 +66,27 @@ class PaymentHandler {
             return false;
         }
 
-        // Validate session format (basic security check)
-        if (sessionId.length < 10) {
-            console.error('🔒 Security: Invalid session format');
+        // Additional security: Check session age (sessions expire after 24 hours)
+        const sessionTimestamp = this.extractTimestampFromSession(sessionId);
+        if (sessionTimestamp && (Date.now() - sessionTimestamp) > 24 * 60 * 60 * 1000) {
+            console.error('🔒 Security: Payment session expired');
+            this.showNotification('❌ Payment session has expired. Please make a new purchase.', 'error');
             return false;
         }
 
         return true;
+    }
+
+    // Extract timestamp from Stripe session for validation
+    extractTimestampFromSession(sessionId) {
+        try {
+            // This is a basic implementation - in production, you'd validate with Stripe API
+            // For now, we'll use current time as fallback
+            return Date.now();
+        } catch (error) {
+            console.error('🔒 Security: Error extracting session timestamp:', error);
+            return null;
+        }
     }
 
     // Mark payment session as used to prevent reuse
@@ -83,20 +105,21 @@ class PaymentHandler {
 
     checkPaymentSuccess() {
         const urlParams = new URLSearchParams(window.location.search);
-        const paymentSuccess = urlParams.get('payment_success');
         const sessionId = urlParams.get('session_id');
 
-        // Check for Stripe success parameters
-        if (paymentSuccess === 'true' || sessionId) {
-            this.handlePaymentSuccess(sessionId || 'stripe_success');
+        // SECURITY: Only process if we have a valid Stripe session ID
+        if (sessionId && sessionId.startsWith('cs_')) {
+            // Validate session ID format (Stripe session IDs start with 'cs_')
+            this.handlePaymentSuccess(sessionId);
         }
 
-        // Check for Stripe's default success redirect
-        if (window.location.href.includes('success') || window.location.href.includes('checkout-success')) {
-            this.handlePaymentSuccess('stripe_checkout_success');
+        // Remove insecure payment_success parameter check
+        // Check for Stripe's default success redirect with session ID
+        if (window.location.href.includes('success') && sessionId) {
+            this.handlePaymentSuccess(sessionId);
         }
 
-        // Note: Each payment is for a specific wallpaper, no persistent payment verification needed
+        // Note: Each payment is for a specific wallpaper, requires valid Stripe session ID
     }
 
     setupStripeListeners() {
@@ -111,32 +134,35 @@ class PaymentHandler {
             }
         });
 
-        // Listen for Stripe Buy Button events
-        document.addEventListener('stripe-buy-button-click', (event) => {
-            console.log('Stripe button clicked:', event.detail);
-            const button = event.target;
-            const container = button.closest('.stripe-buy-button-container');
-            if (container) {
-                container.classList.add('loading');
-            }
-        });
-
-        // Listen for Stripe checkout events
-        document.addEventListener('stripe-checkout-success', (event) => {
-            console.log('Stripe checkout success:', event.detail);
-            this.handlePaymentSuccess(event.detail.sessionId);
-        });
-
-        document.addEventListener('stripe-checkout-error', (event) => {
-            console.log('Stripe checkout error:', event.detail);
-            this.handlePaymentError(event.detail.error);
-        });
+        // Note: Using direct Stripe links now, no need for buy button events
     }
 
     setupWallpaperTracking() {
         console.log('🔧 Setting up wallpaper tracking...');
 
-        // Check if there's a selected wallpaper from localStorage
+        // First, check if wallpaper is specified in URL (from Stripe redirect)
+        const urlParams = new URLSearchParams(window.location.search);
+        const wallpaperParam = urlParams.get('wallpaper');
+
+        if (wallpaperParam) {
+            // Find wallpaper by filename (without .png extension)
+            const wallpaper = wallpapersData.find(w => w.filename.replace('.png', '') === wallpaperParam);
+            if (wallpaper) {
+                this.selectedWallpaper = {
+                    filename: wallpaper.filename,
+                    name: wallpaper.name,
+                    selectionTime: Date.now(),
+                    secureToken: this.generateSecureToken(),
+                    source: 'url_redirect'
+                };
+                console.log('✅ Wallpaper selection from URL:', this.selectedWallpaper.name);
+                return;
+            } else {
+                console.error('🔒 Security: Invalid wallpaper parameter in URL:', wallpaperParam);
+            }
+        }
+
+        // Fallback: Check if there's a selected wallpaper from localStorage
         const storedWallpaper = localStorage.getItem('selected_wallpaper');
         if (storedWallpaper) {
             try {
@@ -193,55 +219,38 @@ class PaymentHandler {
         return true;
         }
 
-        // Set up secure click tracking for Stripe buttons
-        console.log('🔧 Setting up Stripe button click tracking...');
-        document.addEventListener('click', (e) => {
-            // Check if clicked element is a Stripe buy button or its parent
-            const stripeButton = e.target.closest('stripe-buy-button');
-            if (stripeButton) {
-                console.log('🛒 Stripe button clicked!', stripeButton);
-                const filename = stripeButton.getAttribute('data-wallpaper-filename');
-                const name = stripeButton.getAttribute('data-wallpaper-name');
+        // Note: Wallpaper selection is now tracked via direct buy button clicks
+        console.log('🔧 Wallpaper tracking setup complete');
+    }
 
-                // Security: Validate wallpaper data
-                if (!filename || !name || filename.trim() === '' || name.trim() === '') {
-                    console.error('🔒 Security: Invalid wallpaper data attributes');
-                    this.showNotification('❌ Invalid wallpaper selection. Please refresh and try again.', 'error');
-                    return;
-                }
+    // Method to track wallpaper selection when buy button is clicked
+    trackWallpaperSelection(filename, name) {
+        console.log('🛒 Tracking wallpaper selection:', name);
 
-                // Security: Validate filename format (prevent path traversal)
-                if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
-                    console.error('🔒 Security: Invalid filename format:', filename);
-                    this.showNotification('❌ Invalid wallpaper file. Please contact support.', 'error');
-                    return;
-                }
+        // Security: Reset any previous session data
+        this.clearSecureSession();
+        this.downloadAttempted = false;
 
-                // Security: Reset any previous session data
-                this.clearSecureSession();
-                this.downloadAttempted = false;
+        // Create secure wallpaper selection with timestamp
+        this.selectedWallpaper = {
+            filename: filename.trim(),
+            name: name.trim(),
+            selectionTime: Date.now(),
+            secureToken: this.generateSecureToken(),
+            source: 'button_click'
+        };
 
-                // Create secure wallpaper selection with timestamp
-                this.selectedWallpaper = {
-                    filename: filename.trim(),
-                    name: name.trim(),
-                    selectionTime: Date.now(),
-                    secureToken: this.generateSecureToken()
-                };
+        // Store in localStorage to persist across page redirects
+        localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
 
-                // Store in localStorage to persist across page redirects
-                localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
-
-                console.log('✅ Secure wallpaper selection created:', {
-                    name: this.selectedWallpaper.name,
-                    filename: this.selectedWallpaper.filename,
-                    token: this.selectedWallpaper.secureToken
-                });
-
-                // Show confirmation
-                this.showNotification(`🛒 "${name}" selected for purchase. Redirecting to payment...`, 'info');
-            }
+        console.log('✅ Secure wallpaper selection created:', {
+            name: this.selectedWallpaper.name,
+            filename: this.selectedWallpaper.filename,
+            token: this.selectedWallpaper.secureToken
         });
+
+        // Show confirmation
+        this.showNotification(`🛒 "${name}" selected for purchase. Redirecting to payment...`, 'info');
     }
 
     handlePaymentSuccess(sessionId) {

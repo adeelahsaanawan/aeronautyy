@@ -111,12 +111,14 @@ class WallpaperLoader {
                 </div>
 
                 <div class="stripe-buy-button-container" data-wallpaper="${wallpaper.name}">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1RmgmBFo1jajJy4F108A0NGr"
-                        publishable-key="pk_live_51RH6XbFo1jajJy4F0Inr4hE8CqnEVdEU0brDx7ycObwzTjVMfibrafPeuw26twzWoSThjFyQSWv1dJAVQILldacY00QrDFI7HM"
-                        data-wallpaper-filename="${wallpaper.filename}"
-                        data-wallpaper-name="${wallpaper.name}">
-                    </stripe-buy-button>
+                    <a href="${wallpaper.buyButtonUrl}"
+                       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
+                       data-wallpaper-filename="${wallpaper.filename}"
+                       data-wallpaper-name="${wallpaper.name}"
+                       onclick="window.paymentHandler.trackWallpaperSelection('${wallpaper.filename}', '${wallpaper.name}')">
+                        <i class="fas fa-download mr-2"></i>
+                        Buy & Download - $2.99
+                    </a>
                 </div>
             </div>
         `;
@@ -136,15 +138,20 @@ class WallpaperLoader {
                 this.createRippleEffect(e, card);
             });
 
-            // Add loading state to Stripe buttons
-            const stripeButton = card.querySelector('stripe-buy-button');
-            if (stripeButton) {
-                stripeButton.addEventListener('click', () => {
-                    const container = stripeButton.closest('.stripe-buy-button-container');
+            // Add loading state to buy buttons
+            const buyButton = card.querySelector('a[data-wallpaper-filename]');
+            if (buyButton) {
+                buyButton.addEventListener('click', () => {
+                    const container = buyButton.closest('.stripe-buy-button-container');
                     container.classList.add('loading');
 
-                    // Remove loading state after 3 seconds (fallback)
+                    // Add loading text
+                    const originalText = buyButton.innerHTML;
+                    buyButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirecting to payment...';
+
+                    // Restore original text after redirect (fallback)
                     setTimeout(() => {
+                        buyButton.innerHTML = originalText;
                         container.classList.remove('loading');
                     }, 3000);
                 });
