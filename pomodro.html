@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="description" content="FocusFlow - Professional Pomodoro Timer by @aeronautyy. Boost your productivity with this elegant focus tracker featuring task management, customizable timers, and progress tracking.">
+    <meta name="author" content="Adeel Ahsan">
+    <meta name="keywords" content="pomodoro timer, focus tracker, productivity app, task management, time management, study timer, work timer, concentration tool">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aeronautyy.com/pomodro.html">
+    <meta property="og:title" content="FocusFlow - Professional Pomodoro Timer by @aeronautyy">
+    <meta property="og:description" content="Boost your productivity with this elegant Pomodoro timer featuring task management, customizable timers, and progress tracking.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aeronautyy.com/pomodro.html">
+    <meta property="twitter:title" content="FocusFlow - Professional Pomodoro Timer by @aeronautyy">
+    <meta property="twitter:description" content="Boost your productivity with this elegant Pomodoro timer featuring task management, customizable timers, and progress tracking.">
+
+    <title>FocusFlow - Professional Pomodoro Timer by @aeronautyy</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icon.png?1">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+        }
+
+        .dark body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Prevent horizontal overflow */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Notion-style containers */
+        .notion-container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .notion-container {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Enhanced card hover effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .dark .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-item:hover .task-actions {
+            opacity: 1;
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive button containers */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .button-container button {
+            flex: 1;
+            min-width: 0;
+            max-width: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                gap: 0.5rem;
+            }
+
+            .button-container button {
+                flex: 1;
+                min-width: 100px;
+                max-width: 150px;
+                font-size: 0.875rem;
+                padding: 0.75rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .button-container button {
+                flex: 1 1 100%;
+                max-width: none;
+                min-width: 120px;
+                margin-bottom: 0.5rem;
+            }
+
+            .btn-primary {
+                font-size: 0.875rem;
+                padding: 0.75rem 1rem !important;
+            }
+
+            .time-pill {
+                padding: 0.5rem 0.75rem !important;
+            }
+
+            .time-pill div {
+                font-size: 0.75rem !important;
+            }
+
+            /* Ensure timer display fits */
+            #timer-display {
+                font-size: 3rem !important;
+            }
+
+            .relative.w-80.h-80 {
+                width: 16rem !important;
+                height: 16rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container button {
+                padding: 0.625rem 0.75rem;
+                font-size: 0.8125rem;
+            }
+
+            #timer-display {
+                font-size: 2.5rem !important;
+            }
+
+            .relative.w-80.h-80 {
+                width: 14rem !important;
+                height: 14rem !important;
+            }
+        }
+
+        /* Time display pills */
+        .time-pill {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark .time-pill {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Time tracking stats */
+        .stats-container {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark .stats-container {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-item {
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Quote container */
+        .quote-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-text {
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+
+        .quote-text.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .quote-text.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        @aeronautyy
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        Home
+                    </a>
+                    <a href="drone-portfolio.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        Drone Services
+                    </a>
+                    <a href="pid-tuner.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        PID Tuner
+                    </a>
+                    <a href="mathematical-wallpapers.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        Wallpapers
+                    </a>
+                    <span class="text-blue-600 dark:text-blue-400 font-medium">
+                        FocusFlow
+                    </span>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md">Home</a>
+                <a href="drone-portfolio.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md">Drone Services</a>
+                <a href="pid-tuner.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md">PID Tuner</a>
+                <a href="mathematical-wallpapers.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md">Wallpapers</a>
+                <span class="block px-3 py-2 text-blue-600 dark:text-blue-400 font-medium">FocusFlow</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl mt-16">
+        <header class="flex flex-col mb-8">
+            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6">
+                <div class="mb-4 lg:mb-0">
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white">FocusFlow</h1>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg">Your productivity companion</p>
+                </div>
+                <div class="flex flex-wrap items-center justify-center lg:justify-end gap-2 sm:gap-3">
+                    <div class="time-pill rounded-lg px-3 py-2">
+                        <div id="current-time" class="text-blue-700 dark:text-blue-300 text-xs sm:text-sm font-semibold whitespace-nowrap">12:00 PM</div>
+                    </div>
+                    <div class="time-pill rounded-lg px-3 py-2">
+                        <div id="current-date" class="text-purple-700 dark:text-purple-300 text-xs sm:text-sm font-semibold whitespace-nowrap">Jun 12</div>
+                    </div>
+                    <div class="time-pill rounded-lg px-3 py-2">
+                        <div id="current-day" class="text-pink-700 dark:text-pink-300 text-xs sm:text-sm font-semibold whitespace-nowrap">Wednesday</div>
+                    </div>
+                    <button id="settings-btn" class="notion-container rounded-lg p-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex-shrink-0">
+                        <i class="fas fa-cog text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="notion-container rounded-xl p-6 border-l-4 border-indigo-500 quote-container">
+                <div class="flex items-center justify-between">
+                    <div class="flex-grow">
+                        <div id="current-quote" class="text-center text-indigo-700 dark:text-indigo-300 italic text-lg quote-text">
+                            "Discipline is choosing between what you want now and what you want most."
+                        </div>
+                    </div>
+                    <button id="change-quote-btn" class="ml-4 p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-colors flex-shrink-0" title="Change quote">
+                        <i class="fas fa-refresh text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Time Tracking Stats -->
+        <div class="stats-container rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">Today's Focus Stats</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="stat-item text-center p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="focus-time-display">0h 0m</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Focus Time</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <i class="fas fa-brain mr-1"></i>Deep Work
+                    </div>
+                </div>
+                <div class="stat-item text-center p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="break-time-display">0h 0m</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Break Time</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <i class="fas fa-coffee mr-1"></i>Rest
+                    </div>
+                </div>
+                <div class="stat-item text-center p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400" id="total-sessions-display">0</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Sessions</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <i class="fas fa-fire mr-1"></i>Completed
+                    </div>
+                </div>
+                <div class="stat-item text-center p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                    <div class="text-2xl font-bold text-orange-600 dark:text-orange-400" id="productivity-score">0%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Productivity</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <i class="fas fa-chart-line mr-1"></i>Score
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Timer Section -->
+            <div class="lg:col-span-2 notion-container card-hover rounded-xl p-8">
+                <div class="flex flex-col items-center">
+                    <div class="relative w-80 h-80 mb-10 mx-auto">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" dark:stroke="#374151" stroke-width="6"/>
+                            <circle id="progress-circle" cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="0" class="progress-ring__circle"/>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div id="timer-display" class="text-6xl font-bold text-gray-900 dark:text-white">25:00</div>
+                            <div id="timer-state" class="text-blue-600 dark:text-blue-400 font-semibold mt-3 text-xl tracking-wide">READY TO FOCUS</div>
+                        </div>
+                    </div>
+
+                    <div class="button-container mb-10">
+                        <button id="pomodoro-btn" class="px-4 py-3 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-xl font-semibold hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-all">Pomodoro</button>
+                        <button id="short-break-btn" class="px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Short Break</button>
+                        <button id="long-break-btn" class="px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Long Break</button>
+                    </div>
+
+                    <div class="button-container">
+                        <button id="start-btn" class="btn-primary px-6 py-4 text-white rounded-xl font-semibold flex items-center justify-center pulse-animation shadow-lg">
+                            <i class="fas fa-play mr-2"></i> Start Focus
+                        </button>
+                        <button id="reset-btn" class="px-6 py-4 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all shadow-lg flex items-center justify-center">
+                            <i class="fas fa-redo mr-2"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="notion-container card-hover rounded-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Tasks</h2>
+                    <span id="completed-count" class="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">0/0 completed</span>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input id="new-task-input" type="text" placeholder="Add task..." class="flex-grow min-w-0 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                        <div class="flex gap-2 sm:gap-3">
+                            <input id="task-time-input" type="number" min="1" placeholder="25" class="w-20 px-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                            <button id="add-task-btn" class="btn-primary px-4 py-3 text-white rounded-lg font-semibold shadow-lg whitespace-nowrap">
+                                <i class="fas fa-plus mr-2"></i>Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tasks-list" class="space-y-3 max-h-96 overflow-y-auto">
+                    <!-- Tasks will be added here dynamically -->
+                    <div class="text-center py-12 text-gray-500 dark:text-gray-400" id="empty-state">
+                        <i class="fas fa-tasks text-4xl mb-4 text-gray-300 dark:text-gray-600"></i>
+                        <p class="text-lg">No tasks yet. Add your first task!</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Current Session</span>
+                        <span id="session-count" class="text-sm font-semibold text-blue-600 dark:text-blue-400">0 pomodoros</span>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex items-center">
+                            <div class="flex-grow bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                                <div id="session-progress" class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden z-50">
+        <div class="notion-container rounded-xl p-8 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Settings</h3>
+                <button id="close-settings" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pomodoro Duration (minutes)</label>
+                    <input id="pomodoro-duration" type="number" min="1" value="25" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Short Break Duration (minutes)</label>
+                    <input id="short-break-duration" type="number" min="1" value="5" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Long Break Duration (minutes)</label>
+                    <input id="long-break-duration" type="number" min="1" value="15" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pomodoros Before Long Break</label>
+                    <input id="pomodoros-before-long-break" type="number" min="1" value="4" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
+                </div>
+
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button id="save-settings" class="btn-primary w-full px-6 py-3 text-white rounded-lg font-semibold shadow-lg">
+                        <i class="fas fa-save mr-2"></i>Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Links -->
+                <div class="flex flex-wrap justify-center gap-6 mb-4 md:mb-0">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="drone-portfolio.html" class="text-gray-300 hover:text-white transition-colors">Drone Services</a>
+                    <a href="pid-tuner.html" class="text-gray-300 hover:text-white transition-colors">PID Tuner</a>
+                    <a href="mathematical-wallpapers.html" class="text-gray-300 hover:text-white transition-colors">Wallpapers</a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-center md:text-right">
+                    <p class="text-gray-300">© 2025 @aeronautyy</p>
+                    <p class="text-gray-400 text-sm mt-1">FocusFlow - Stay Productive</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const timerDisplay = document.getElementById('timer-display');
+        const timerState = document.getElementById('timer-state');
+        const progressCircle = document.getElementById('progress-circle');
+        const startBtn = document.getElementById('start-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const pomodoroBtn = document.getElementById('pomodoro-btn');
+        const shortBreakBtn = document.getElementById('short-break-btn');
+        const longBreakBtn = document.getElementById('long-break-btn');
+        const newTaskInput = document.getElementById('new-task-input');
+        const taskTimeInput = document.getElementById('task-time-input');
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const tasksList = document.getElementById('tasks-list');
+        const emptyState = document.getElementById('empty-state');
+        const completedCount = document.getElementById('completed-count');
+        const sessionCount = document.getElementById('session-count');
+        const sessionProgress = document.getElementById('session-progress');
+        const currentQuote = document.getElementById('current-quote');
+        const currentTime = document.getElementById('current-time');
+        const currentDate = document.getElementById('current-date');
+        const currentDay = document.getElementById('current-day');
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeSettings = document.getElementById('close-settings');
+        const saveSettings = document.getElementById('save-settings');
+        const changeQuoteBtn = document.getElementById('change-quote-btn');
+        const focusTimeDisplay = document.getElementById('focus-time-display');
+        const breakTimeDisplay = document.getElementById('break-time-display');
+        const totalSessionsDisplay = document.getElementById('total-sessions-display');
+        const productivityScore = document.getElementById('productivity-score');
+        
+        // Timer variables
+        let timer;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        let timerRunning = false;
+        let currentMode = 'pomodoro'; // 'pomodoro', 'shortBreak', 'longBreak'
+        let pomodorosCompleted = 0;
+
+        // Time tracking variables
+        let sessionStartTime = null;
+        let totalFocusTime = 0; // in seconds
+        let totalBreakTime = 0; // in seconds
+        let totalSessions = 0;
+        let dailyStats = {
+            date: new Date().toDateString(),
+            focusTime: 0,
+            breakTime: 0,
+            sessions: 0
+        };
+        
+        // Settings
+        let settings = {
+            pomodoroDuration: 25,
+            shortBreakDuration: 5,
+            longBreakDuration: 15,
+            pomodorosBeforeLongBreak: 4
+        };
+        
+        // Quotes about focus and discipline
+        const quotes = [
+            "Discipline is choosing between what you want now and what you want most.",
+            "The way to get started is to quit talking and begin doing. - Walt Disney",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
+            "Focus on being productive instead of busy. - Tim Ferriss",
+            "The successful warrior is the average man with laser-like focus. - Bruce Lee",
+            "Concentrate all your thoughts upon the work at hand. The sun's rays do not burn until brought to a focus. - Alexander Graham Bell",
+            "It is during our darkest moments that we must focus to see the light. - Aristotle",
+            "The art of being wise is knowing what to overlook. - William James",
+            "You can't depend on your eyes when your imagination is out of focus. - Mark Twain",
+            "Lack of direction, not lack of time, is the problem. We all have twenty-four hour days. - Zig Ziglar",
+            "The key is not to prioritize what's on your schedule, but to schedule your priorities. - Stephen Covey",
+            "Time is what we want most, but what we use worst. - William Penn",
+            "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+            "Productivity is never an accident. It is always the result of a commitment to excellence. - Paul J. Meyer",
+            "Focus is a matter of deciding what things you're not going to do. - John Carmack",
+            "The most productive people are those who ask the right questions. - Tim Ferriss",
+            "Your future is created by what you do today, not tomorrow. - Robert Kiyosaki",
+            "Excellence is never an accident. It is always the result of high intention. - Aristotle",
+            "The difference between ordinary and extraordinary is that little extra. - Jimmy Johnson",
+            "Success is the sum of small efforts repeated day in and day out. - Robert Collier",
+            "The ability to concentrate and to use your time well is everything. - Lee Iacocca",
+            "Concentration is the secret of strength in all management of human affairs. - Ralph Waldo Emerson",
+            "Where focus goes, energy flows and results show. - Tony Robbins",
+            "Focus on the journey, not the destination. Joy is found not in finishing but in doing. - Greg Anderson",
+            "The key to success is to focus our conscious mind on things we desire, not things we fear. - Brian Tracy"
+        ];
+        let currentQuoteIndex = 0;
+        
+        // Tasks array
+        let tasks = [];
+        
+        // Initialize the app
+        function init() {
+            updateTimerDisplay();
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            setInterval(changeQuote, 600000); // Change quote every 10 minutes
+            
+            // Load settings from localStorage if available
+            const savedSettings = localStorage.getItem('pomodoroSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+                updateSettingsInputs();
+            }
+            
+            // Load tasks from localStorage if available
+            const savedTasks = localStorage.getItem('pomodoroTasks');
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+                renderTasks();
+            }
+
+            // Load daily stats and display
+            loadDailyStats();
+
+            // Load a random quote
+            loadRandomQuote();
+            
+            // Event listeners
+            startBtn.addEventListener('click', toggleTimer);
+            resetBtn.addEventListener('click', resetTimer);
+            pomodoroBtn.addEventListener('click', () => switchMode('pomodoro'));
+            shortBreakBtn.addEventListener('click', () => switchMode('shortBreak'));
+            longBreakBtn.addEventListener('click', () => switchMode('longBreak'));
+            addTaskBtn.addEventListener('click', addTask);
+            newTaskInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addTask();
+            });
+            settingsBtn.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+            closeSettings.addEventListener('click', () => settingsModal.classList.add('hidden'));
+            saveSettings.addEventListener('click', saveSettingsHandler);
+            changeQuoteBtn.addEventListener('click', changeQuote);
+            
+            // Close modal when clicking outside
+            settingsModal.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    settingsModal.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Update the current time, date and day display
+        function updateCurrentTime() {
+            const now = new Date();
+            
+            // Format time in 12-hour with AM/PM
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            currentTime.textContent = `${hours}:${minutes} ${ampm}`;
+            currentTime.className = "text-blue-800 text-sm";
+            
+            // Format date like "Jun 12"
+            const dateOptions = { month: 'short', day: 'numeric' };
+            currentDate.textContent = now.toLocaleDateString(undefined, dateOptions);
+            currentDate.className = "text-purple-800 text-sm";
+            
+            // Format day like "Monday"
+            const dayOptions = { weekday: 'long' };
+            currentDay.textContent = now.toLocaleDateString(undefined, dayOptions);
+            currentDay.className = "text-pink-800 text-sm";
+        }
+        
+        // Change the displayed quote
+        function changeQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            currentQuote.textContent = `"${quotes[randomIndex]}"`;
+        }
+        
+        // Update settings inputs with current values
+        function updateSettingsInputs() {
+            document.getElementById('pomodoro-duration').value = settings.pomodoroDuration;
+            document.getElementById('short-break-duration').value = settings.shortBreakDuration;
+            document.getElementById('long-break-duration').value = settings.longBreakDuration;
+            document.getElementById('pomodoros-before-long-break').value = settings.pomodorosBeforeLongBreak;
+        }
+        
+        // Save settings handler
+        function saveSettingsHandler() {
+            settings.pomodoroDuration = parseInt(document.getElementById('pomodoro-duration').value) || 25;
+            settings.shortBreakDuration = parseInt(document.getElementById('short-break-duration').value) || 5;
+            settings.longBreakDuration = parseInt(document.getElementById('long-break-duration').value) || 15;
+            settings.pomodorosBeforeLongBreak = parseInt(document.getElementById('pomodoros-before-long-break').value) || 4;
+            
+            localStorage.setItem('pomodoroSettings', JSON.stringify(settings));
+            settingsModal.classList.add('hidden');
+            
+            // Update timer if needed
+            if (!timerRunning) {
+                switchMode(currentMode);
+            }
+        }
+        
+        // Toggle timer between start and pause
+        function toggleTimer() {
+            if (timerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+        
+        // Start the timer
+        function startTimer() {
+            timerRunning = true;
+            updateButtonText('pause');
+            startBtn.classList.remove('btn-primary', 'pulse-animation');
+            startBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+
+            // Start time tracking
+            startTimeTracking();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerFinished();
+                }
+            }, 1000);
+        }
+
+        // Pause the timer
+        function pauseTimer() {
+            timerRunning = false;
+            clearInterval(timer);
+            updateButtonText('resume');
+            startBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+            startBtn.classList.add('btn-primary', 'pulse-animation');
+
+            // Stop time tracking when paused
+            stopTimeTracking();
+        }
+
+        // Reset the timer
+        function resetTimer() {
+            clearInterval(timer);
+            timerRunning = false;
+            switchMode(currentMode);
+            updateButtonText('start');
+            startBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+            startBtn.classList.add('btn-primary', 'pulse-animation');
+
+            // Stop time tracking when reset
+            stopTimeTracking();
+        }
+
+        // Toggle timer (start/pause)
+        function toggleTimer() {
+            if (timerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        // Update button text based on screen size
+        function updateButtonText(state) {
+            const isMobile = window.innerWidth <= 640;
+
+            switch(state) {
+                case 'start':
+                    startBtn.innerHTML = isMobile ?
+                        '<i class="fas fa-play mr-2"></i> Start' :
+                        '<i class="fas fa-play mr-2"></i> Start Focus';
+                    break;
+                case 'pause':
+                    startBtn.innerHTML = isMobile ?
+                        '<i class="fas fa-pause mr-2"></i> Pause' :
+                        '<i class="fas fa-pause mr-2"></i> Pause';
+                    break;
+                case 'resume':
+                    startBtn.innerHTML = isMobile ?
+                        '<i class="fas fa-play mr-2"></i> Resume' :
+                        '<i class="fas fa-play mr-2"></i> Resume';
+                    break;
+            }
+        }
+        
+        // Handle timer finish
+        function timerFinished() {
+            timerRunning = false;
+
+            // Stop time tracking for completed session
+            stopTimeTracking();
+
+            // Play sound
+            try {
+                const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            } catch (e) {
+                console.log('Audio creation failed:', e);
+            }
+
+            // Update completed pomodoros if it was a pomodoro session
+            if (currentMode === 'pomodoro') {
+                pomodorosCompleted++;
+                updateSessionProgress();
+                showNotification('🍅 Pomodoro completed! Great work!', 'success');
+
+                // Check if we should take a long break
+                if (pomodorosCompleted % settings.pomodorosBeforeLongBreak === 0) {
+                    switchMode('longBreak');
+                    showNotification('🌟 Time for a long break! You\'ve earned it!', 'info');
+                } else {
+                    switchMode('shortBreak');
+                    showNotification('☕ Time for a short break!', 'info');
+                }
+            } else {
+                // After break, go back to pomodoro
+                switchMode('pomodoro');
+                showNotification('🍅 Break\'s over! Ready to focus?', 'info');
+            }
+
+            // Reset button state
+            updateButtonText('start');
+            startBtn.classList.remove('bg-yellow-500');
+            startBtn.classList.add('btn-primary', 'pulse-animation');
+        }
+        
+        // Switch between timer modes
+        function switchMode(mode) {
+            currentMode = mode;
+
+            // Reset button states
+            pomodoroBtn.classList.remove('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+            pomodoroBtn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+            shortBreakBtn.classList.remove('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+            shortBreakBtn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+            longBreakBtn.classList.remove('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+            longBreakBtn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+
+            // Set time based on mode
+            switch (mode) {
+                case 'pomodoro':
+                    timeLeft = settings.pomodoroDuration * 60;
+                    timerState.textContent = '🍅 FOCUS TIME';
+                    pomodoroBtn.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+                    pomodoroBtn.classList.add('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+                    break;
+                case 'shortBreak':
+                    timeLeft = settings.shortBreakDuration * 60;
+                    timerState.textContent = '☕ SHORT BREAK';
+                    shortBreakBtn.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+                    shortBreakBtn.classList.add('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+                    break;
+                case 'longBreak':
+                    timeLeft = settings.longBreakDuration * 60;
+                    timerState.textContent = '🌟 LONG BREAK';
+                    longBreakBtn.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+                    longBreakBtn.classList.add('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+                    break;
+            }
+
+            updateTimerDisplay();
+        }
+        
+        // Update the timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const seconds = (timeLeft % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${minutes}:${seconds}`;
+            
+            // Update progress circle
+            let circumference = 2 * Math.PI * 45;
+            let totalTime;
+            
+            switch (currentMode) {
+                case 'pomodoro':
+                    totalTime = settings.pomodoroDuration * 60;
+                    break;
+                case 'shortBreak':
+                    totalTime = settings.shortBreakDuration * 60;
+                    break;
+                case 'longBreak':
+                    totalTime = settings.longBreakDuration * 60;
+                    break;
+            }
+            
+            let offset = circumference - (timeLeft / totalTime) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+        
+        // Update session progress
+        function updateSessionProgress() {
+            sessionCount.textContent = `${pomodorosCompleted} pomodoro${pomodorosCompleted !== 1 ? 's' : ''}`;
+            const progress = (pomodorosCompleted % settings.pomodorosBeforeLongBreak) / settings.pomodorosBeforeLongBreak * 100;
+            sessionProgress.style.width = `${progress}%`;
+        }
+        
+        // Add a new task
+        function addTask() {
+            const taskText = newTaskInput.value.trim();
+            const taskTime = parseInt(taskTimeInput.value) || 25;
+            
+            if (taskText) {
+                const task = {
+                    id: Date.now(),
+                    text: taskText,
+                    time: taskTime,
+                    completed: false,
+                    pomodoros: 0
+                };
+                
+                tasks.push(task);
+                saveTasks();
+                renderTasks();
+                
+                // Clear inputs
+                newTaskInput.value = '';
+                taskTimeInput.value = '';
+                newTaskInput.focus();
+            }
+        }
+        
+        // Render all tasks
+        function renderTasks() {
+            if (tasks.length === 0) {
+                emptyState.classList.remove('hidden');
+                tasksList.innerHTML = '';
+                tasksList.appendChild(emptyState);
+            } else {
+                emptyState.classList.add('hidden');
+                tasksList.innerHTML = '';
+                
+                tasks.forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = `task-item notion-container rounded-xl p-4 flex items-start transition-all duration-300 hover:shadow-lg ${task.completed ? 'opacity-70' : ''}`;
+                    taskElement.dataset.id = task.id;
+
+                    taskElement.innerHTML = `
+                        <div class="flex items-start flex-grow">
+                            <button class="complete-btn mt-1 mr-4 text-gray-400 dark:text-gray-500 hover:text-green-600 dark:hover:text-green-400 focus:outline-none transition-colors">
+                                <i class="fas fa-${task.completed ? 'check-circle text-green-500 dark:text-green-400' : 'circle'} text-lg"></i>
+                            </button>
+                            <div class="flex-grow">
+                                <div class="text-gray-900 dark:text-white font-medium ${task.completed ? 'line-through' : ''}">${task.text}</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-4">
+                                    <span class="flex items-center"><i class="far fa-clock mr-2"></i>${task.time} min</span>
+                                    <span class="flex items-center"><i class="fas fa-fire-alt mr-2 text-orange-500"></i>${task.pomodoros}/${Math.ceil(task.time / settings.pomodoroDuration)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-actions opacity-0 transition-opacity flex space-x-2">
+                            <button class="start-task-btn p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all" title="Start this task">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="delete-task-btn p-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 focus:outline-none rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-all" title="Delete task">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    tasksList.appendChild(taskElement);
+                    
+                    // Add event listeners
+                    const completeBtn = taskElement.querySelector('.complete-btn');
+                    const deleteBtn = taskElement.querySelector('.delete-task-btn');
+                    const startBtn = taskElement.querySelector('.start-task-btn');
+                    
+                    completeBtn.addEventListener('click', () => toggleTaskComplete(task.id));
+                    deleteBtn.addEventListener('click', () => deleteTask(task.id));
+                    startBtn.addEventListener('click', () => startTask(task.id));
+                });
+                
+                updateCompletedCount();
+            }
+        }
+        
+        // Toggle task completion status
+        function toggleTaskComplete(taskId) {
+            const taskIndex = tasks.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                saveTasks();
+                renderTasks();
+            }
+        }
+        
+        // Delete a task
+        function deleteTask(taskId) {
+            tasks = tasks.filter(task => task.id !== taskId);
+            saveTasks();
+            renderTasks();
+        }
+        
+        // Start working on a specific task
+        function startTask(taskId) {
+            const task = tasks.find(task => task.id === taskId);
+            if (task) {
+                // Set the pomodoro duration to the task's estimated time if it's less than default
+                if (task.time < settings.pomodoroDuration) {
+                    const originalPomodoroDuration = settings.pomodoroDuration;
+                    settings.pomodoroDuration = task.time;
+                    switchMode('pomodoro');
+                    settings.pomodoroDuration = originalPomodoroDuration;
+                } else {
+                    switchMode('pomodoro');
+                }
+                
+                // Highlight the active task
+                document.querySelectorAll('.task-item').forEach(item => {
+                    item.classList.remove('border-indigo-400', 'bg-indigo-50');
+                });
+                
+                const taskElement = document.querySelector(`.task-item[data-id="${taskId}"]`);
+                if (taskElement) {
+                    taskElement.classList.add('border-indigo-400', 'bg-indigo-50');
+                }
+                
+                // Start the timer if not already running
+                if (!timerRunning) {
+                    startTimer();
+                }
+            }
+        }
+        
+        // Update completed tasks count
+        function updateCompletedCount() {
+            const completed = tasks.filter(task => task.completed).length;
+            completedCount.textContent = `${completed}/${tasks.length} completed`;
+        }
+        
+        // Save tasks to localStorage
+        function saveTasks() {
+            localStorage.setItem('pomodoroTasks', JSON.stringify(tasks));
+        }
+
+        // Time tracking functions
+        function loadDailyStats() {
+            const today = new Date().toDateString();
+            const savedStats = localStorage.getItem('pomodoroStats');
+
+            if (savedStats) {
+                const stats = JSON.parse(savedStats);
+                if (stats.date === today) {
+                    dailyStats = stats;
+                    totalFocusTime = stats.focusTime;
+                    totalBreakTime = stats.breakTime;
+                    totalSessions = stats.sessions;
+                } else {
+                    // New day, reset stats
+                    dailyStats = {
+                        date: today,
+                        focusTime: 0,
+                        breakTime: 0,
+                        sessions: 0
+                    };
+                    totalFocusTime = 0;
+                    totalBreakTime = 0;
+                    totalSessions = 0;
+                }
+            }
+            updateStatsDisplay();
+        }
+
+        function saveDailyStats() {
+            dailyStats.focusTime = totalFocusTime;
+            dailyStats.breakTime = totalBreakTime;
+            dailyStats.sessions = totalSessions;
+            localStorage.setItem('pomodoroStats', JSON.stringify(dailyStats));
+        }
+
+        function startTimeTracking() {
+            sessionStartTime = Date.now();
+        }
+
+        function stopTimeTracking() {
+            if (sessionStartTime) {
+                const sessionDuration = Math.floor((Date.now() - sessionStartTime) / 1000);
+
+                if (currentMode === 'pomodoro') {
+                    totalFocusTime += sessionDuration;
+                    totalSessions++;
+                } else {
+                    totalBreakTime += sessionDuration;
+                }
+
+                sessionStartTime = null;
+                saveDailyStats();
+                updateStatsDisplay();
+            }
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            } else {
+                return `${minutes}m`;
+            }
+        }
+
+        function updateStatsDisplay() {
+            focusTimeDisplay.textContent = formatTime(totalFocusTime);
+            breakTimeDisplay.textContent = formatTime(totalBreakTime);
+            totalSessionsDisplay.textContent = totalSessions;
+
+            // Calculate productivity score
+            const totalTime = totalFocusTime + totalBreakTime;
+            const productivityPercentage = totalTime > 0 ? Math.round((totalFocusTime / totalTime) * 100) : 0;
+            productivityScore.textContent = `${productivityPercentage}%`;
+        }
+
+        // Quote management functions
+        function changeQuote() {
+            const quoteText = currentQuote;
+
+            // Fade out current quote
+            quoteText.classList.add('fade-out');
+
+            setTimeout(() => {
+                // Change to next quote
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                quoteText.textContent = quotes[currentQuoteIndex];
+
+                // Fade in new quote
+                quoteText.classList.remove('fade-out');
+                quoteText.classList.add('fade-in');
+
+                setTimeout(() => {
+                    quoteText.classList.remove('fade-in');
+                }, 500);
+            }, 250);
+        }
+
+        function loadRandomQuote() {
+            currentQuoteIndex = Math.floor(Math.random() * quotes.length);
+            currentQuote.textContent = quotes[currentQuoteIndex];
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation' : 'info'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.classList.toggle('dark', currentTheme === 'dark');
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Handle window resize for responsive button text
+        window.addEventListener('resize', () => {
+            if (timerRunning) {
+                updateButtonText('pause');
+            } else {
+                updateButtonText('start');
+            }
+        });
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
