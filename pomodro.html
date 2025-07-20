@@ -865,6 +865,9 @@
             // Load daily stats and display
             loadDailyStats();
 
+            // Initialize session progress display
+            updateSessionProgress();
+
             // Load a random quote
             loadRandomQuote();
             
@@ -953,7 +956,7 @@
                 startTimer();
             }
         }
-        
+
         // Start the timer
         function startTimer() {
             timerRunning = true;
@@ -967,6 +970,9 @@
             timer = setInterval(() => {
                 timeLeft--;
                 updateTimerDisplay();
+
+                // Update real-time stats display
+                updateRealTimeStats();
 
                 if (timeLeft <= 0) {
                     clearInterval(timer);
@@ -983,8 +989,8 @@
             startBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
             startBtn.classList.add('btn-primary', 'pulse-animation');
 
-            // Stop time tracking when paused
-            stopTimeTracking();
+            // Update time tracking when paused (but don't increment sessions)
+            updateTimeTracking();
         }
 
         // Reset the timer
@@ -996,17 +1002,8 @@
             startBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
             startBtn.classList.add('btn-primary', 'pulse-animation');
 
-            // Stop time tracking when reset
-            stopTimeTracking();
-        }
-
-        // Toggle timer (start/pause)
-        function toggleTimer() {
-            if (timerRunning) {
-                pauseTimer();
-            } else {
-                startTimer();
-            }
+            // Update time tracking when reset (but don't increment sessions)
+            updateTimeTracking();
         }
 
         // Update button text based on screen size
@@ -1036,8 +1033,8 @@
         function timerFinished() {
             timerRunning = false;
 
-            // Stop time tracking for completed session
-            stopTimeTracking();
+            // Complete the session and update stats
+            completeSession();
 
             // Play sound
             try {
@@ -1055,15 +1052,15 @@
 
                 // Check if we should take a long break
                 if (pomodorosCompleted % settings.pomodorosBeforeLongBreak === 0) {
-                    switchMode('longBreak');
+                    switchMode('longBreak', true);
                     showNotification('🌟 Time for a long break! You\'ve earned it!', 'info');
                 } else {
-                    switchMode('shortBreak');
+                    switchMode('shortBreak', true);
                     showNotification('☕ Time for a short break!', 'info');
                 }
             } else {
                 // After break, go back to pomodoro
-                switchMode('pomodoro');
+                switchMode('pomodoro', true);
                 showNotification('🍅 Break\'s over! Ready to focus?', 'info');
             }
 
@@ -1074,7 +1071,12 @@
         }
         
         // Switch between timer modes
-        function switchMode(mode) {
+        function switchMode(mode, forceSwitch = false) {
+            // Don't allow mode switching while timer is running unless forced
+            if (timerRunning && !forceSwitch) {
+                return;
+            }
+
             currentMode = mode;
 
             // Reset button states
@@ -1320,13 +1322,29 @@
             sessionStartTime = Date.now();
         }
 
-        function stopTimeTracking() {
+        function updateTimeTracking() {
             if (sessionStartTime) {
                 const sessionDuration = Math.floor((Date.now() - sessionStartTime) / 1000);
 
                 if (currentMode === 'pomodoro') {
                     totalFocusTime += sessionDuration;
-                    totalSessions++;
+                } else {
+                    totalBreakTime += sessionDuration;
+                }
+
+                sessionStartTime = Date.now(); // Reset start time for continuous tracking
+                saveDailyStats();
+                updateStatsDisplay();
+            }
+        }
+
+        function completeSession() {
+            if (sessionStartTime) {
+                const sessionDuration = Math.floor((Date.now() - sessionStartTime) / 1000);
+
+                if (currentMode === 'pomodoro') {
+                    totalFocusTime += sessionDuration;
+                    totalSessions++; // Only increment sessions when a pomodoro is completed
                 } else {
                     totalBreakTime += sessionDuration;
                 }
@@ -1334,6 +1352,30 @@
                 sessionStartTime = null;
                 saveDailyStats();
                 updateStatsDisplay();
+            }
+        }
+
+        function updateRealTimeStats() {
+            if (sessionStartTime) {
+                const currentSessionDuration = Math.floor((Date.now() - sessionStartTime) / 1000);
+                let displayFocusTime = totalFocusTime;
+                let displayBreakTime = totalBreakTime;
+
+                if (currentMode === 'pomodoro') {
+                    displayFocusTime += currentSessionDuration;
+                } else {
+                    displayBreakTime += currentSessionDuration;
+                }
+
+                // Update display with real-time values
+                focusTimeDisplay.textContent = formatTime(displayFocusTime);
+                breakTimeDisplay.textContent = formatTime(displayBreakTime);
+                totalSessionsDisplay.textContent = totalSessions;
+
+                // Calculate productivity score
+                const totalTime = displayFocusTime + displayBreakTime;
+                const productivityPercentage = totalTime > 0 ? Math.round((displayFocusTime / totalTime) * 100) : 0;
+                productivityScore.textContent = `${productivityPercentage}%`;
             }
         }
 
@@ -1349,14 +1391,17 @@
         }
 
         function updateStatsDisplay() {
-            focusTimeDisplay.textContent = formatTime(totalFocusTime);
-            breakTimeDisplay.textContent = formatTime(totalBreakTime);
-            totalSessionsDisplay.textContent = totalSessions;
+            // Only update if timer is not running (to avoid conflicts with real-time updates)
+            if (!timerRunning) {
+                focusTimeDisplay.textContent = formatTime(totalFocusTime);
+                breakTimeDisplay.textContent = formatTime(totalBreakTime);
+                totalSessionsDisplay.textContent = totalSessions;
 
-            // Calculate productivity score
-            const totalTime = totalFocusTime + totalBreakTime;
-            const productivityPercentage = totalTime > 0 ? Math.round((totalFocusTime / totalTime) * 100) : 0;
-            productivityScore.textContent = `${productivityPercentage}%`;
+                // Calculate productivity score
+                const totalTime = totalFocusTime + totalBreakTime;
+                const productivityPercentage = totalTime > 0 ? Math.round((totalFocusTime / totalTime) * 100) : 0;
+                productivityScore.textContent = `${productivityPercentage}%`;
+            }
         }
 
         // Quote management functions
