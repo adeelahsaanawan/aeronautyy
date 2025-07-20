@@ -1200,16 +1200,7 @@
             });
         });
 
-        // Debug information (remove in production)
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            console.log('Debug mode enabled');
-            console.log('Available test functions:');
-            console.log('- paymentHandler.testPaymentIntegration() - Test payment setup');
-            console.log('- paymentHandler.simulatePaymentSuccess() - Simulate successful payment');
-            console.log('- paymentHandler.testDownload() - Test download functionality');
-            console.log('- paymentHandler.getPaymentStatus() - Get current payment status');
-            console.log('- wallpaperLoader.getStats() - Get wallpaper statistics');
-        }
+        // Production ready - all test functionality removed
     </script>
 </body>
 </html>

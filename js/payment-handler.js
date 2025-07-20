@@ -107,7 +107,12 @@ class PaymentHandler {
                     // Store in localStorage to persist across page redirects
                     localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
 
-                    console.log('Selected wallpaper:', this.selectedWallpaper);
+                    console.log('✅ Wallpaper selected for purchase:', this.selectedWallpaper);
+
+                    // Show a brief confirmation
+                    this.showNotification(`🛒 "${name}" added to cart. Redirecting to payment...`, 'info');
+                } else {
+                    console.error('❌ Missing wallpaper data attributes on Stripe button');
                 }
             }
         });
@@ -219,8 +224,8 @@ class PaymentHandler {
 
     downloadWallpaper(filename, name) {
         try {
-            // Show download starting notification
-            this.showNotification(`Starting download of ${name}...`, 'info');
+            // Show download starting notification with specific wallpaper name
+            this.showNotification(`🎨 Starting download of "${name}" wallpaper...`, 'info');
 
             // Create download link
             const link = document.createElement('a');
@@ -241,9 +246,9 @@ class PaymentHandler {
                 }
             }, 100);
 
-            // Show success notification after a delay
+            // Show success notification after a delay with specific wallpaper name
             setTimeout(() => {
-                this.showNotification(`${name} wallpaper downloaded successfully!`, 'success');
+                this.showNotification(`✅ "${name}" wallpaper downloaded successfully! Thank you for your purchase.`, 'success');
             }, 500);
 
             // Track download
@@ -251,17 +256,19 @@ class PaymentHandler {
 
         } catch (error) {
             console.error('Download error:', error);
-            this.showNotification(`Failed to download ${name}. Please try again.`, 'error');
+            this.showNotification(`❌ Failed to download "${name}" wallpaper. Please try again or contact support.`, 'error');
         }
     }
 
     showPaymentSuccessMessage() {
+        const wallpaperName = this.selectedWallpaper ? this.selectedWallpaper.name : 'your wallpaper';
+
         const successBanner = document.createElement('div');
-        successBanner.className = 'fixed top-20 left-0 right-0 z-50 bg-green-500 text-white p-4 text-center';
+        successBanner.className = 'fixed top-20 left-0 right-0 z-50 bg-green-500 text-white p-4 text-center shadow-lg';
         successBanner.innerHTML = `
             <div class="max-w-4xl mx-auto">
                 <i class="fas fa-check-circle mr-2"></i>
-                Payment successful! Downloading all wallpapers now...
+                Payment successful! "${wallpaperName}" download will start automatically.
                 <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-green-200 hover:text-white">
                     <i class="fas fa-times"></i>
                 </button>
@@ -270,18 +277,20 @@ class PaymentHandler {
 
         document.body.appendChild(successBanner);
 
-        // Auto-remove after 10 seconds
+        // Auto-remove after 8 seconds
         setTimeout(() => {
             if (successBanner.parentElement) {
                 successBanner.remove();
             }
-        }, 10000);
+        }, 8000);
     }
 
     startAutomaticDownload() {
         // Check if a specific wallpaper was selected
         if (this.selectedWallpaper) {
             // Download only the selected wallpaper
+            console.log('Starting download for selected wallpaper:', this.selectedWallpaper);
+
             setTimeout(() => {
                 this.downloadWallpaper(this.selectedWallpaper.filename, this.selectedWallpaper.name);
             }, 1000); // Small delay to ensure payment processing is complete
@@ -290,80 +299,14 @@ class PaymentHandler {
             this.selectedWallpaper = null;
             localStorage.removeItem('selected_wallpaper');
         } else {
-            // Fallback: Download all wallpapers if no specific selection
-            if (typeof wallpapersData !== 'undefined') {
-                this.downloadAllWallpapers();
-            } else {
-                // If wallpapersData is not available, try to get it from the loader
-                setTimeout(() => {
-                    if (window.wallpaperLoader && window.wallpaperLoader.wallpapers) {
-                        this.downloadAllWallpapers(window.wallpaperLoader.wallpapers);
-                    } else {
-                        this.showNotification('Unable to download wallpapers. Please refresh and try again.', 'error');
-                    }
-                }, 1000);
-            }
+            // No specific wallpaper selected - this shouldn't happen in normal flow
+            console.error('No wallpaper selected for download');
+            this.showNotification('Error: No wallpaper selected for download. Please try purchasing again.', 'error');
         }
     }
 
-    downloadAllWallpapers(wallpapers = wallpapersData) {
-        // Show download progress notification
-        const progressNotification = this.createProgressNotification(wallpapers.length);
-        document.body.appendChild(progressNotification);
-
-        let downloadCount = 0;
-        const totalWallpapers = wallpapers.length;
-
-        // Download all wallpapers with a small delay between each
-        wallpapers.forEach((wallpaper, index) => {
-            setTimeout(() => {
-                this.downloadWallpaper(wallpaper.filename, wallpaper.name);
-                downloadCount++;
-
-                // Update progress
-                this.updateProgressNotification(progressNotification, downloadCount, totalWallpapers);
-
-                // If this is the last download
-                if (downloadCount === totalWallpapers) {
-                    setTimeout(() => {
-                        if (progressNotification.parentNode) {
-                            progressNotification.parentNode.removeChild(progressNotification);
-                        }
-                        this.showNotification('All wallpapers downloaded successfully!', 'success');
-                    }, 2000);
-                }
-            }, index * 1000); // 1 second delay between downloads
-        });
-    }
-
-    createProgressNotification(totalCount) {
-        const progressNotification = document.createElement('div');
-        progressNotification.className = 'fixed top-36 right-4 bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-sm';
-        progressNotification.innerHTML = `
-            <div class="flex items-center">
-                <i class="fas fa-download mr-3 text-xl animate-bounce"></i>
-                <div>
-                    <h4 class="font-semibold">Downloading Wallpapers</h4>
-                    <p class="text-sm opacity-90">Preparing ${totalCount} wallpapers...</p>
-                    <div class="w-full bg-blue-400 rounded-full h-2 mt-2">
-                        <div class="bg-white h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        return progressNotification;
-    }
-
-    updateProgressNotification(notification, current, total) {
-        const progressBar = notification.querySelector('.bg-white');
-        const textElement = notification.querySelector('p');
-
-        if (progressBar && textElement) {
-            const percentage = (current / total) * 100;
-            progressBar.style.width = `${percentage}%`;
-            textElement.textContent = `Downloaded ${current} of ${total} wallpapers...`;
-        }
-    }
+    // Removed downloadAllWallpapers and related functions
+    // Payment should only download the specific selected wallpaper
 
     showDownloadEnabledIndicator() {
         // Add a small indicator to show downloads are enabled
@@ -467,18 +410,7 @@ class PaymentHandler {
         // });
     }
 
-    // Test function to verify download functionality
-    testDownload() {
-        if (typeof wallpapersData !== 'undefined' && wallpapersData.length > 0) {
-            const testWallpaper = wallpapersData[0];
-            console.log('Testing download with:', testWallpaper);
-            this.downloadWallpaper(testWallpaper.filename, testWallpaper.name);
-            return true;
-        } else {
-            console.error('No wallpaper data available for testing');
-            return false;
-        }
-    }
+
 
     // Get download history
     getDownloadHistory() {
@@ -491,84 +423,15 @@ class PaymentHandler {
         console.log('Download history cleared');
     }
 
-    // Test payment integration
-    testPaymentIntegration() {
-        console.log('Testing payment integration...');
 
-        // Check if Stripe is loaded
-        if (typeof window.Stripe === 'undefined') {
-            console.warn('Stripe is not loaded yet');
-            return false;
-        }
 
-        // Check if Stripe buy buttons are present
-        const stripeButtons = document.querySelectorAll('stripe-buy-button');
-        console.log(`Found ${stripeButtons.length} Stripe buy buttons`);
 
-        if (stripeButtons.length === 0) {
-            console.error('No Stripe buy buttons found');
-            return false;
-        }
-
-        // Test button attributes
-        stripeButtons.forEach((button, index) => {
-            const buyButtonId = button.getAttribute('buy-button-id');
-            const publishableKey = button.getAttribute('publishable-key');
-            const filename = button.getAttribute('data-wallpaper-filename');
-            const name = button.getAttribute('data-wallpaper-name');
-
-            console.log(`Button ${index + 1}:`, {
-                buyButtonId,
-                publishableKey: publishableKey ? 'Present' : 'Missing',
-                filename,
-                name
-            });
-
-            if (!buyButtonId || !publishableKey) {
-                console.error(`Button ${index + 1} is missing required attributes`);
-            }
-        });
-
-        // Simulate payment success for testing
-        console.log('To test payment success, run: paymentHandler.simulatePaymentSuccess()');
-
-        return true;
-    }
-
-    // Simulate payment success for testing
-    simulatePaymentSuccess() {
-        console.log('Simulating payment success...');
-
-        // Set a test wallpaper selection
-        if (typeof wallpapersData !== 'undefined' && wallpapersData.length > 0) {
-            this.selectedWallpaper = {
-                filename: wallpapersData[0].filename,
-                name: wallpapersData[0].name
-            };
-            localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
-        }
-
-        // Simulate payment success
-        this.handlePaymentSuccess('test_session_' + Date.now());
-
-        console.log('Payment success simulated');
-    }
-
-    // Get payment status
-    getPaymentStatus() {
-        return {
-            verified: this.paymentVerified,
-            selectedWallpaper: this.selectedWallpaper,
-            storedPayment: localStorage.getItem('wallpaper_payment_verified'),
-            downloadHistory: this.getDownloadHistory()
-        };
-    }
 }
 
 // Initialize payment handler when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.paymentHandler = new PaymentHandler();
-    console.log('Payment handler initialized. Test with: paymentHandler.testPaymentIntegration()');
+    console.log('Payment handler initialized and ready for wallpaper purchases.');
 });
 
 // Export for use in other scripts
