@@ -20,17 +20,13 @@ class WallpaperLoader {
     }
 
     loadWallpapers() {
-        console.log('🔧 Loading wallpapers...', this.wallpapers.length, 'wallpapers found');
-
         // Find the wallpaper container
         this.container = document.querySelector('.wallpaper-gallery-container');
 
         if (!this.container) {
-            console.error('❌ Wallpaper container not found');
+            console.error('Wallpaper container not found');
             return;
         }
-
-        console.log('✅ Container found:', this.container);
 
         // Clear existing content
         this.container.innerHTML = '';
@@ -40,8 +36,7 @@ class WallpaperLoader {
         grid.className = 'grid grid-cols-1 lg:grid-cols-2 gap-12';
 
         // Generate wallpaper cards
-        this.wallpapers.forEach((wallpaper, index) => {
-            console.log(`🎨 Creating card ${index + 1}:`, wallpaper.name, wallpaper.price);
+        this.wallpapers.forEach(wallpaper => {
             const card = this.createWallpaperCard(wallpaper);
             grid.appendChild(card);
         });
@@ -63,8 +58,6 @@ class WallpaperLoader {
     }
 
     createWallpaperCard(wallpaper) {
-        console.log('🔧 Creating card for:', wallpaper.name, 'Price:', wallpaper.price, 'URL:', wallpaper.buyButtonUrl);
-
         const card = document.createElement('div');
         card.className = 'wallpaper-card notion-container rounded-xl overflow-hidden';
 

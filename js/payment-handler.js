@@ -23,8 +23,7 @@ class PaymentHandler {
         // Listen for Stripe events
         this.setupStripeListeners();
 
-        // Setup download buttons
-        this.setupDownloadButtons();
+        // Note: Download buttons removed - using direct Stripe links
 
         // Setup wallpaper selection tracking
         this.setupWallpaperTracking();
@@ -145,9 +144,6 @@ class PaymentHandler {
         const wallpaperParam = urlParams.get('wallpaper');
 
         if (wallpaperParam) {
-            console.log('🔧 Looking for wallpaper with parameter:', wallpaperParam);
-            console.log('🔧 Available wallpapers:', wallpapersData.map(w => w.filename.replace('.png', '')));
-
             // Find wallpaper by filename (without .png extension)
             const wallpaper = wallpapersData.find(w => w.filename.replace('.png', '') === wallpaperParam);
             if (wallpaper) {
@@ -162,7 +158,6 @@ class PaymentHandler {
                 return;
             } else {
                 console.error('🔒 Security: Invalid wallpaper parameter in URL:', wallpaperParam);
-                console.log('🔧 Available options:', wallpapersData.map(w => ({ name: w.name, param: w.filename.replace('.png', '') })));
             }
         }
 
@@ -344,33 +339,7 @@ class PaymentHandler {
         }, 8000);
     }
 
-    // Note: enableDownloads() removed - not needed for individual wallpaper purchases
-
-    setupDownloadButtons() {
-        const downloadButtons = document.querySelectorAll('.download-btn');
-        console.log('🔧 Found download buttons:', downloadButtons.length);
-
-        downloadButtons.forEach((button, index) => {
-            console.log(`🔧 Download button ${index + 1}:`, button.getAttribute('data-filename'), button.getAttribute('data-name'));
-
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('🔧 Download button clicked:', button.getAttribute('data-filename'));
-
-                if (!this.paymentVerified) {
-                    this.showPaymentRequiredMessage();
-                    return;
-                }
-
-                const filename = button.getAttribute('data-filename');
-                const name = button.getAttribute('data-name');
-
-                if (filename && name) {
-                    this.downloadWallpaper(filename, name);
-                }
-            });
-        });
-    }
+    // Note: Download buttons removed - using direct Stripe links with automatic download
 
     downloadWallpaper(filename, name) {
         console.log('🔒 Executing secure wallpaper download...');
