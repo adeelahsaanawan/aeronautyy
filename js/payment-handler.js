@@ -134,6 +134,8 @@ class PaymentHandler {
     }
 
     setupWallpaperTracking() {
+        console.log('🔧 Setting up wallpaper tracking...');
+
         // Check if there's a selected wallpaper from localStorage
         const storedWallpaper = localStorage.getItem('selected_wallpaper');
         if (storedWallpaper) {
@@ -152,6 +154,8 @@ class PaymentHandler {
                 console.error('🔒 Security: Error parsing stored wallpaper:', e);
                 localStorage.removeItem('selected_wallpaper');
             }
+        } else {
+            console.log('📝 No stored wallpaper selection found');
         }
     }
 
@@ -187,13 +191,15 @@ class PaymentHandler {
         }
 
         return true;
-    }
+        }
 
         // Set up secure click tracking for Stripe buttons
+        console.log('🔧 Setting up Stripe button click tracking...');
         document.addEventListener('click', (e) => {
             // Check if clicked element is a Stripe buy button or its parent
             const stripeButton = e.target.closest('stripe-buy-button');
             if (stripeButton) {
+                console.log('🛒 Stripe button clicked!', stripeButton);
                 const filename = stripeButton.getAttribute('data-wallpaper-filename');
                 const name = stripeButton.getAttribute('data-wallpaper-name');
 
@@ -240,6 +246,7 @@ class PaymentHandler {
 
     handlePaymentSuccess(sessionId) {
         console.log('🔒 Processing payment success for session:', sessionId);
+        console.log('🔍 Current selectedWallpaper:', this.selectedWallpaper);
 
         // Security: Validate payment session
         if (!this.validatePaymentSession(sessionId)) {
@@ -256,6 +263,8 @@ class PaymentHandler {
         // Security: Validate wallpaper selection exists
         if (!this.selectedWallpaper || !this.selectedWallpaper.filename || !this.selectedWallpaper.name) {
             console.error('🔒 Security: No valid wallpaper selection found');
+            console.error('🔍 selectedWallpaper state:', this.selectedWallpaper);
+            console.error('🔍 localStorage content:', localStorage.getItem('selected_wallpaper'));
             this.showNotification('❌ No wallpaper selected. Please try purchasing again.', 'error');
             return;
         }
@@ -522,6 +531,27 @@ class PaymentHandler {
 
     // Removed downloadAllWallpapers and related functions
     // Payment should only download the specific selected wallpaper
+
+    // TEMPORARY: Test function to verify the fix (remove after testing)
+    testPaymentFlow(wallpaperName = 'Mandelbrot Set', wallpaperFilename = 'mandelbrot_set.png') {
+        console.log('🧪 TESTING: Simulating payment flow for:', wallpaperName);
+
+        // Step 1: Simulate wallpaper selection
+        this.selectedWallpaper = {
+            filename: wallpaperFilename,
+            name: wallpaperName,
+            selectionTime: Date.now(),
+            secureToken: this.generateSecureToken()
+        };
+        localStorage.setItem('selected_wallpaper', JSON.stringify(this.selectedWallpaper));
+        console.log('✅ TESTING: Wallpaper selected:', this.selectedWallpaper);
+
+        // Step 2: Simulate payment success
+        setTimeout(() => {
+            console.log('🧪 TESTING: Simulating payment success...');
+            this.handlePaymentSuccess('test_session_' + Date.now());
+        }, 1000);
+    }
 
 
 
