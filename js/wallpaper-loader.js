@@ -111,7 +111,7 @@ class WallpaperLoader {
                 </div>
 
                 <div class="download-button-container" data-wallpaper="${wallpaper.name}">
-                    <a href="${wallpaper.kofiUrl}"
+                    <a href="${wallpaper.kofiUrl || '#'}"
                        class="download-button"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -240,6 +240,7 @@ class WallpaperLoader {
 
         // Generate wallpaper cards
         wallpapers.forEach(wallpaper => {
+            console.log('Creating card for:', wallpaper.name, 'kofiUrl:', wallpaper.kofiUrl);
             const card = this.createWallpaperCard(wallpaper);
             grid.appendChild(card);
         });
