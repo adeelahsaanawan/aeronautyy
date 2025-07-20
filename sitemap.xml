@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Main Portfolio Page -->
   <url>
@@ -15,6 +16,37 @@
     <lastmod>2024-12-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- FocusFlow Pomodoro Timer -->
+  <url>
+    <loc>https://aeronautyy.com/pomodro.html</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Mathematical Wallpapers -->
+  <url>
+    <loc>https://aeronautyy.com/mathematical-wallpapers.html</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://aeronautyy.com/wallpapers/mandelbrot_set.png</image:loc>
+      <image:caption>Mandelbrot Set Fractal Wallpaper - Beautiful mathematical art</image:caption>
+      <image:title>Mandelbrot Set 4K Mathematical Wallpaper</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/wallpapers/julia_set.png</image:loc>
+      <image:caption>Julia Set Fractal Wallpaper - Stunning mathematical visualization</image:caption>
+      <image:title>Julia Set 4K Mathematical Wallpaper</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aeronautyy.com/wallpapers/lorenz_attractor.png</image:loc>
+      <image:caption>Lorenz Attractor Chaos Theory Visualization - Mathematical art</image:caption>
+      <image:title>Lorenz Attractor 4K Mathematical Wallpaper</image:title>
+    </image:image>
   </url>
 
   <!-- PID Tuner App Page -->
